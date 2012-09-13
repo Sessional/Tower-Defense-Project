@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TowerDefenseGame.Windows
 {
@@ -12,6 +13,11 @@ namespace TowerDefenseGame.Windows
         private ContentManager content;
 
         private List<GameWindow> windows;
+
+        public enum GameWindows
+        {
+            PauseMenu
+        }
 
         public WindowManager(Game1 masterGame, ContentManager content)
         {
@@ -30,16 +36,44 @@ namespace TowerDefenseGame.Windows
             return windows[windows.Count - 1];
         }
 
+        public void RemoveWindow()
+        {
+            windows.RemoveAt(windows.Count - 1);
+            if (windows.Count == 0)
+            {
+                masterGame.GetMapManager().TogglePause();
+            }
+        }
+
         public void ApplyGameWindow()
         {
             GameWindow removedWindow = GetWindow();
             windows.RemoveAt(windows.Count - 1);
             removedWindow.Apply();
+
+        }
+
+        public void AddGameWindow(GameWindow gw)
+        {
+            windows.Add(gw);
+        }
+
+        public void Draw(SpriteBatch sprites)
+        {
+            GetWindow().Draw(sprites);
         }
 
         public void HandleEscape()
         {
-            //masterGame.GetMapManager().T
+            if (GetWindow() == null)
+            {
+                masterGame.GetMapManager().TogglePause();
+                AddGameWindow(new GameWindow(content, GameWindows.PauseMenu));
+            }
+            else
+            {
+                RemoveWindow();
+            }
         }
     }
 }

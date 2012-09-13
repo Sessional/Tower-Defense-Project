@@ -49,6 +49,11 @@ namespace TowerDefenseGame.Maps
             GetWindowManager().HandleEscape();
         }
 
+        public void TogglePause()
+        {
+            currentMap.TogglePause();
+        }
+
         public void Update()
         {
 
@@ -58,16 +63,24 @@ namespace TowerDefenseGame.Maps
         {
             currentMap.Draw(sprites);
 
-            int x = Mouse.GetState().X;
-            int y = Mouse.GetState().Y;
-            try
-            {
-                GameTile tile = currentMap.getTile((int)x / GameTile.TILE_DIMENSIONS, (int)y / GameTile.TILE_DIMENSIONS);
-                tile.OnHover(sprites);
-            }
-            catch (IndexOutOfRangeException)
-            {
 
+            if (currentMap.IsPaused())
+            {
+                GetWindowManager().Draw(sprites);
+            }
+            else
+            {
+                int x = Mouse.GetState().X;
+                int y = Mouse.GetState().Y;
+                try
+                {
+                    GameTile tile = currentMap.getTile((int)x / GameTile.TILE_DIMENSIONS, (int)y / GameTile.TILE_DIMENSIONS);
+                    tile.OnHover(sprites);
+                }
+                catch (IndexOutOfRangeException)
+                {
+
+                }
             }
         }
     }

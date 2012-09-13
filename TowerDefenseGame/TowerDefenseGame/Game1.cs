@@ -108,12 +108,13 @@ namespace TowerDefenseGame
             // TODO: Unload any non ContentManager content here
         }
 
+        KeyboardState prevState;
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
@@ -122,14 +123,14 @@ namespace TowerDefenseGame
 
             if (currentState == GameState.MainWindow)
             {
-                if (Keyboard.GetState().GetPressedKeys().Contains(Keys.Escape))
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
                     GetMenuManager().RemoveMenu();
                 }
             }
             else if (currentState == GameState.GameWindow)
             {
-                if (Keyboard.GetState().GetPressedKeys().Contains(Keys.Escape))
+                if (Keyboard.GetState().GetPressedKeys().Contains(Keys.Escape) && prevState != null && !prevState.IsKeyDown(Keys.Escape))
                 {
                     GetMapManager().HandleEscape();
                 }
@@ -146,6 +147,8 @@ namespace TowerDefenseGame
                 }
             }
             // TODO: Add your update logic here
+
+            prevState = Keyboard.GetState();
 
             base.Update(gameTime);
         }
