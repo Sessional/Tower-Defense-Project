@@ -19,6 +19,7 @@ namespace TowerDefenseGame.Menus
         public override void OnClick()
         {
             getParentMenu().getRootGame().setGameState(Game1.GameState.GameWindow);
+            getParentMenu().getRootGame().GetMapManager().LoadMap("basic");
         }
 
         public override void OnHover(SpriteBatch sprites)

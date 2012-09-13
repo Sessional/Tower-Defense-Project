@@ -26,6 +26,7 @@ namespace TowerDefenseGame.Maps
             this.masterGame = masterGame;
             this.mapName = mapName;
             tileset = masterGame.GetTileManager().getTileSet("standard");
+            isPaused = false;
             Load();
         }
 
@@ -46,9 +47,16 @@ namespace TowerDefenseGame.Maps
         GameTile[][] mapTiles;
 
         string mapName;
+
+        bool isPaused;
         //##################################
         //######## State Methods ###########
         //##################################
+
+        public bool IsPaused()
+        {
+            return isPaused;
+        }
 
         /// <summary>
         /// 
@@ -131,5 +139,13 @@ namespace TowerDefenseGame.Maps
         //##################################
         //######## Setters #################
         //##################################
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void TogglePause()
+        {
+            isPaused = !isPaused;
+        }
     }
 }

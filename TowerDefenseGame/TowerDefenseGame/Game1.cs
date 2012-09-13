@@ -70,14 +70,9 @@ namespace TowerDefenseGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            tileManager = new TileManager(this, Content);
-            menuManager = new MenuManager(this, Content);
             currentState = GameState.MainWindow;
             this.IsMouseVisible = true;
-            //menuTexture = Content.Load<Texture2D>("Menus//menuMain");
-            //singlePlayerButton = Content.Load<Texture2D>("Menus//Buttons/buttonSinglePlayer");
-            //Content.Load
-            //currentMap = new GameMap(this, "basic", grassTexture);
+
             base.Initialize();
         }
 
@@ -85,7 +80,6 @@ namespace TowerDefenseGame
         {
             graphics.PreferredBackBufferHeight = height;
             graphics.PreferredBackBufferWidth = width;
-            //graphics.ToggleFullScreen();
             graphics.ApplyChanges();
         }
 
@@ -98,7 +92,9 @@ namespace TowerDefenseGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-
+            tileManager = new TileManager(this, Content);
+            menuManager = new MenuManager(this, Content);
+            mapManager = new MapManager(this, Content);
 
             // TODO: use this.Content to load your game content here
         }
@@ -121,9 +117,23 @@ namespace TowerDefenseGame
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().GetPressedKeys().Contains(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            if (currentState == GameState.MainWindow)
+            {
+                if (Keyboard.GetState().GetPressedKeys().Contains(Keys.Escape))
+                {
+                    GetMenuManager().RemoveMenu();
+                }
+            }
+            else if (currentState == GameState.GameWindow)
+            {
+                if (Keyboard.GetState().GetPressedKeys().Contains(Keys.Escape))
+                {
+                    GetMapManager().HandleEscape();
+                }
+            }
 
             int x = Mouse.GetState().X;
             int y = Mouse.GetState().Y;
@@ -150,19 +160,7 @@ namespace TowerDefenseGame
             // TODO: Add your drawing code here
             if (currentState == GameState.GameWindow)
             {
-                currentMap.Draw(spriteBatch);
-
-                int x = Mouse.GetState().X;
-                int y = Mouse.GetState().Y;
-                try
-                {
-                    GameTile tile = currentMap.getTile((int)x / GameTile.TILE_DIMENSIONS, (int)y / GameTile.TILE_DIMENSIONS);
-                    tile.OnHover(spriteBatch);
-                }
-                catch (IndexOutOfRangeException)
-                {
-
-                }
+                GetMapManager().Draw(spriteBatch);
             }
             else if (currentState == GameState.MainWindow)
             {
@@ -175,10 +173,6 @@ namespace TowerDefenseGame
         internal void setGameState(GameState gameState)
         {
             this.currentState = gameState;
-            if (gameState == GameState.GameWindow)
-            {
-                currentMap = new GameMap(this, "basic");
-            }
         }
     }
 }

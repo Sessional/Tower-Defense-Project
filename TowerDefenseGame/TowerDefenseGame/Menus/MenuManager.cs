@@ -57,6 +57,15 @@ namespace TowerDefenseGame.Menu
             return gameMenus[gameMenus.Count - 1];
         }
 
+        public void RemoveMenu()
+        {
+            gameMenus.RemoveAt(gameMenus.Count - 1);
+            if (gameMenus.Count == 0)
+            {
+                masterGame.Exit();
+            }
+        }
+
         public MenuManager(Game1 masterGame, ContentManager content)
         {
             gameMenus = new List<GameMenu>();

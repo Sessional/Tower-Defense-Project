@@ -5,7 +5,11 @@ using System.Text;
 
 namespace TowerDefenseGame.Windows
 {
-    class GameWindow
+    public abstract class GameWindow
     {
+
+        public abstract void Apply();
+
+
     }
 }
