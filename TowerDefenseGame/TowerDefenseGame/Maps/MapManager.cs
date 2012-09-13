@@ -8,7 +8,7 @@ namespace TowerDefenseGame.Maps
 {
     public class MapManager
     {
-        public MapManager(ContentManager content)
+        public MapManager(Game1 masterGame, ContentManager content)
         {
 
         }

@@ -13,6 +13,7 @@ namespace TowerDefenseGame.Menu
         private List<Button> buttons;
         private Texture2D backgroundImage;
         private Game1 masterGame;
+        private MenuManager.Menus menuState;
 
         public GameMenu(Game1 masterGame, Texture2D bgImage)
         {
@@ -25,6 +26,11 @@ namespace TowerDefenseGame.Menu
         public List<Button> getButtons()
         {
             return buttons;
+        }
+
+        public MenuManager.Menus GetMenuType()
+        {
+            return menuState;
         }
 
         public void AddButton(Button button)

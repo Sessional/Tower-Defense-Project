@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
+using TowerDefenseGame.Menus;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TowerDefenseGame.Menu
 {
@@ -11,6 +13,7 @@ namespace TowerDefenseGame.Menu
 
         private List<GameMenu> gameMenus;
         private ContentManager content;
+        private Game1 masterGame;
 
         public enum Menus
         {
@@ -30,6 +33,9 @@ namespace TowerDefenseGame.Menu
             switch (menu)
             {
                 case Menus.MainMenu:
+                    GameMenu tempMenu = new GameMenu(masterGame, content.Load<Texture2D>("Menus//menuMain"));
+                    tempMenu.AddButton(new SinglePlayerButton(tempMenu, content.Load<Texture2D>("Menus//Buttons/buttonSinglePlayer"), 350, 200, 100, 50));
+                    gameMenus.Add(tempMenu);
                     break;
                 case Menus.MultiPlayerCreationMenu:
                     break;
@@ -51,15 +57,28 @@ namespace TowerDefenseGame.Menu
             return gameMenus[gameMenus.Count - 1];
         }
 
-        public MenuManager(ContentManager content)
+        public MenuManager(Game1 masterGame, ContentManager content)
         {
             gameMenus = new List<GameMenu>();
             this.content = content;
+            this.masterGame = masterGame;
+            AddMenu(Menus.MainMenu);
         }
 
-        public void HandleClick()
+        public void OnClick(int x, int y)
         {
+            foreach (Button b in GetMenu().getButtons())
+            {
+                if (b.InBounds(x, y))
+                {
+                    b.OnClick();
+                }
+            }
+        }
 
+        public void Draw(SpriteBatch sprites)
+        {
+            GetMenu().Draw(sprites);
         }
     }
 }

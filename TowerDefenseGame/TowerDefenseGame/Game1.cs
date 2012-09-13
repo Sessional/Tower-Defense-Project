@@ -70,15 +70,14 @@ namespace TowerDefenseGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            tileManager = new TileManager(Content);
+            tileManager = new TileManager(this, Content);
+            menuManager = new MenuManager(this, Content);
             currentState = GameState.MainWindow;
             this.IsMouseVisible = true;
-            menuTexture = Content.Load<Texture2D>("Menus//menuMain");
-            singlePlayerButton = Content.Load<Texture2D>("Menus//Buttons/buttonSinglePlayer");
+            //menuTexture = Content.Load<Texture2D>("Menus//menuMain");
+            //singlePlayerButton = Content.Load<Texture2D>("Menus//Buttons/buttonSinglePlayer");
             //Content.Load
             //currentMap = new GameMap(this, "basic", grassTexture);
-            currentMenu = new GameMenu(this, menuTexture);
-            currentMenu.AddButton(new SinglePlayerButton(currentMenu, singlePlayerButton, 350, 200, 100, 50));
             base.Initialize();
         }
 
@@ -125,22 +124,17 @@ namespace TowerDefenseGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().GetPressedKeys().Contains(Keys.Escape))
                 this.Exit();
 
+
+            int x = Mouse.GetState().X;
+            int y = Mouse.GetState().Y;
+
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                int x = Mouse.GetState().X;
-                int y = Mouse.GetState().Y;
                 if (currentState == GameState.MainWindow)
                 {
-                    foreach (Button b in currentMenu.getButtons())
-                    {
-                        if (b.InBounds(x, y))
-                        {
-                            b.OnClick();
-                        }
-                    }
+                    GetMenuManager().OnClick(x, y);
                 }
             }
-
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -160,7 +154,6 @@ namespace TowerDefenseGame
 
                 int x = Mouse.GetState().X;
                 int y = Mouse.GetState().Y;
-
                 try
                 {
                     GameTile tile = currentMap.getTile((int)x / GameTile.TILE_DIMENSIONS, (int)y / GameTile.TILE_DIMENSIONS);
@@ -173,7 +166,7 @@ namespace TowerDefenseGame
             }
             else if (currentState == GameState.MainWindow)
             {
-                currentMenu.Draw(spriteBatch);
+                GetMenuManager().Draw(spriteBatch);
             }
 
             base.Draw(gameTime);
