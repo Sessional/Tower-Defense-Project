@@ -3,36 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
+using TowerDefenseGame.Content;
 
 namespace TowerDefenseGame.Tiles
 {
-    class TileManager
+    public class TileManager
     {
 
         Dictionary<string, TileSet> tileSets;
+        ContentManager content;
 
-        public TileManager()
+        public TileManager(ContentManager content)
         {
-
+            tileSets = new Dictionary<string, TileSet>();
+            this.content = content;
+            LoadTiles();
         }
 
-        public enum TileSets
+        public TileSet getTileSet(string tileSet)
         {
-            Standard
+            return tileSets[tileSet];
         }
 
-        public TileSet getTileSet(TileSets tileSet)
+        public void LoadTiles()
         {
-            switch (tileSet)
-            {
-                default:
-                    return tileSets["standard"];
-            } 
+            TileSetReader tsr = new TileSetReader(this, "standard", content);
         }
 
-        public void LoadTiles(ContentManager content)
+        public void AddTileSet(TileSet tileset)
         {
-
+            tileSets.Add(tileset.GetName(), tileset);
         }
     }
 }

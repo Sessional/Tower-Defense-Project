@@ -2,23 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TowerDefenseGame.Tiles
 {
-    class TileSet
+    public class TileSet
     {
-        Dictionary<string, GameTile> tiles;
+        Dictionary<string, Texture2D> tileTextures;
         string tileSetName;
 
         public TileSet(string tileSetName)
         {
-            tiles = new Dictionary<string, GameTile>();
+            tileTextures = new Dictionary<string, Texture2D>();
             this.tileSetName = tileSetName;
         }
 
-        public void AddTile(string name, GameTile tile)
+        public void AddTile(string name, Texture2D tileTexture)
         {
-            tiles[name] = tile;
+            tileTextures[name] = tileTexture;
         }
 
         /// <summary>
@@ -27,13 +28,18 @@ namespace TowerDefenseGame.Tiles
         /// <param name="tileName">The tile name to get the tile of</param>
         /// <returns>Returns the GameTile object of this tileset relating to the given name.
         /// Returns 'null' if the tileset does not contain that name.</returns>
-        public GameTile GetTile(string tileName)
+        public Texture2D GetTexture(string tileName)
         {
-            if (tiles.ContainsKey(tileName))
+            if (tileTextures.ContainsKey(tileName))
             {
-                return tiles[tileName];
+                return tileTextures[tileName];
             }
             return null;
+        }
+
+        public string GetName()
+        {
+            return tileSetName;
         }
     }
 }

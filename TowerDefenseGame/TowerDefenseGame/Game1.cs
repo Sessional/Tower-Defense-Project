@@ -26,14 +26,28 @@ namespace TowerDefenseGame
         GameState currentState;
         GameMap currentMap;
         GameMenu currentMenu;
-        public Texture2D grassTexture;
-        public Texture2D pathTexture;
-        public Texture2D finishTexture;
-        public Texture2D startTexture;
-        public Texture2D hoverTexture;
-        public Texture2D invalidHoverTexture;
+
         public Texture2D menuTexture;
         public Texture2D singlePlayerButton;
+
+        TileManager tileManager;
+        MenuManager menuManager;
+        MapManager mapManager;
+
+        public TileManager GetTileManager()
+        {
+            return tileManager;
+        }
+
+        public MenuManager GetMenuManager()
+        {
+            return menuManager;
+        }
+
+        public MapManager GetMapManager()
+        {
+            return mapManager;
+        }
 
         public enum GameState
         {
@@ -56,18 +70,13 @@ namespace TowerDefenseGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            tileManager = new TileManager(Content);
             currentState = GameState.MainWindow;
             this.IsMouseVisible = true;
-            grassTexture = Content.Load<Texture2D>("Tiles//tileGrass");
-            pathTexture = Content.Load<Texture2D>("Tiles//tilePath");
-            startTexture = Content.Load<Texture2D>("Tiles//tileStart");
-            finishTexture = Content.Load<Texture2D>("Tiles//tileFinish");
-            hoverTexture = Content.Load<Texture2D>("Tiles//tileHover");
-            invalidHoverTexture = Content.Load<Texture2D>("Tiles//tileInvalidHover");
             menuTexture = Content.Load<Texture2D>("Menus//menuMain");
             singlePlayerButton = Content.Load<Texture2D>("Menus//Buttons/buttonSinglePlayer");
             //Content.Load
-            currentMap = new GameMap(this, "basic", grassTexture);
+            //currentMap = new GameMap(this, "basic", grassTexture);
             currentMenu = new GameMenu(this, menuTexture);
             currentMenu.AddButton(new SinglePlayerButton(currentMenu, singlePlayerButton, 350, 200, 100, 50));
             base.Initialize();
@@ -110,8 +119,6 @@ namespace TowerDefenseGame
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
 
-        private MouseState prevMouseState;
-
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
@@ -122,11 +129,14 @@ namespace TowerDefenseGame
             {
                 int x = Mouse.GetState().X;
                 int y = Mouse.GetState().Y;
-                foreach (Button b in currentMenu.getButtons())
+                if (currentState == GameState.MainWindow)
                 {
-                    if (b.InBounds(x, y))
+                    foreach (Button b in currentMenu.getButtons())
                     {
-                        b.OnClick();
+                        if (b.InBounds(x, y))
+                        {
+                            b.OnClick();
+                        }
                     }
                 }
             }
@@ -135,8 +145,6 @@ namespace TowerDefenseGame
 
             base.Update(gameTime);
         }
-
-        private int isPulse = 0;
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -176,7 +184,7 @@ namespace TowerDefenseGame
             this.currentState = gameState;
             if (gameState == GameState.GameWindow)
             {
-                currentMap.Load();
+                currentMap = new GameMap(this, "basic");
             }
         }
     }

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace TowerDefenseGame.Menu
 {
-    class GameMenu
+    public class GameMenu
     {
         private List<Button> buttons;
         private Texture2D backgroundImage;

@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Content;
 
 namespace TowerDefenseGame.Menu
 {
-    class MenuManager
+    public class MenuManager
     {
 
         private List<GameMenu> gameMenus;
+        private ContentManager content;
 
         public enum Menus
         {
@@ -49,9 +51,10 @@ namespace TowerDefenseGame.Menu
             return gameMenus[gameMenus.Count - 1];
         }
 
-        public MenuManager()
+        public MenuManager(ContentManager content)
         {
             gameMenus = new List<GameMenu>();
+            this.content = content;
         }
 
         public void HandleClick()

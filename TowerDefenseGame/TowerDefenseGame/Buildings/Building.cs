@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TowerDefenseGame.Buildings
 {
-    class Building
+    public class Building
     {
     }
 }

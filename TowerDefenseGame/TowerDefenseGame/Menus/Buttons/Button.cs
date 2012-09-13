@@ -8,7 +8,7 @@ using TowerDefenseGame.Menu;
 
 namespace TowerDefenseGame.Menus
 {
-    abstract class Button
+    public abstract class Button
     {
         private Texture2D buttonImage;
         GameMenu parentMenu;

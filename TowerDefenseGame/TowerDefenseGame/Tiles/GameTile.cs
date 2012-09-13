@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace TowerDefenseGame.Tiles
 {
-    class GameTile
+    public class GameTile
     {
         //##################################
         //######## Static Variables ########
@@ -103,11 +103,11 @@ namespace TowerDefenseGame.Tiles
             sprites.Begin();
             if (isBuildable())
             {
-                sprites.Draw(map.getRootGame().hoverTexture, new Rectangle(xCoord * TILE_DIMENSIONS, yCoord * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
+                sprites.Draw(map.tileset.GetTexture("hover"), new Rectangle(xCoord * TILE_DIMENSIONS, yCoord * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
             }
             else
             {
-                sprites.Draw(map.getRootGame().invalidHoverTexture, new Rectangle(xCoord * TILE_DIMENSIONS, yCoord * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
+                sprites.Draw(map.tileset.GetTexture("invalidhover"), new Rectangle(xCoord * TILE_DIMENSIONS, yCoord * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
             }
             sprites.End();
         }

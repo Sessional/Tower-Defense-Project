@@ -1,6 +1,6 @@
-grass:tileGrass
-path:tilePath
-start:tileStart
-finish:tileFinish
-hover:tileHover
-invalidhover:tileInvalidHover
+grass:Tiles//tileGrass
+path:Tiles//tilePath
+start:Tiles//tileStart
+finish:Tiles//tileFinish
+hover:Tiles//tileHover
+invalidhover:Tiles//tileInvalidHover

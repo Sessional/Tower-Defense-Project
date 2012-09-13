@@ -9,24 +9,29 @@ using TowerDefenseGame.Content;
 
 namespace TowerDefenseGame.Maps
 {
-    class GameMap
+    public class GameMap
     {
         //##################################
         //######## Public Variables ########
         //##################################
         public Texture2D DEFAULT_TILE_TEXTURE;
 
+        public TileSet tileset;
         //##################################
         //######## Constructors ############
         //##################################
 
-        public GameMap(Game1 masterGame, string mapName, Texture2D defaultTexture)
+        public GameMap(Game1 masterGame, string mapName)
         {
             this.masterGame = masterGame;
             this.mapName = mapName;
-            this.DEFAULT_TILE_TEXTURE = defaultTexture;
-
+            tileset = masterGame.GetTileManager().getTileSet("standard");
             Load();
+        }
+
+        public void SetTileSet(string tilesetName)
+        {
+            tileset = masterGame.GetTileManager().getTileSet(tilesetName);
         }
 
         //##################################

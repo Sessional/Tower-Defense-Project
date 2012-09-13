@@ -8,7 +8,7 @@ using TowerDefenseGame.Maps;
 
 namespace TowerDefenseGame.Content
 {
-    class TextMapReader
+    public class TextMapReader
     {
         public static string MAP_DIRECTORY = "Content//Maps//";
 
@@ -37,7 +37,17 @@ namespace TowerDefenseGame.Content
             StreamReader fileReader = new StreamReader(mapPath);
             while (fileReader.EndOfStream == false)
             {
-                lines.Add(fileReader.ReadLine());
+                string line = fileReader.ReadLine();
+                if (line[0].ToString() == "<")
+                {
+                    line = line.Substring(1, line.Length - 2);
+                    string[] content = line.Split("=".ToCharArray());
+                    masterMap.SetTileSet(content[1]);
+                }
+                else
+                {
+                    lines.Add(line);
+                }
             }
         }
 
@@ -57,19 +67,19 @@ namespace TowerDefenseGame.Content
                     char curTile = lines[y][x];
                     if (curTile.ToString() == "#")
                     {
-                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, true, masterMap.getRootGame().grassTexture);
+                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, true, masterMap.getRootGame().GetTileManager().getTileSet("standard").GetTexture("grass"));
                     }
                     else if (curTile.ToString() == "=")
                     {
-                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, false, masterMap.getRootGame().pathTexture);
+                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, false, masterMap.getRootGame().GetTileManager().getTileSet("standard").GetTexture("path"));
                     }
                     else if (curTile.ToString() == "f")
                     {
-                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, false, masterMap.getRootGame().finishTexture);
+                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, false, masterMap.getRootGame().GetTileManager().getTileSet("standard").GetTexture("finish"));
                     }
                     else if (curTile.ToString() == "s")
                     {
-                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, false, masterMap.getRootGame().startTexture);
+                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, false, masterMap.getRootGame().GetTileManager().getTileSet("standard").GetTexture("start"));
                     }
                 }
             }

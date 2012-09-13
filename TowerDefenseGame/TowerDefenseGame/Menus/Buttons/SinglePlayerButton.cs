@@ -8,7 +8,7 @@ using TowerDefenseGame.Menu;
 
 namespace TowerDefenseGame.Menus
 {
-    class SinglePlayerButton : Button
+    public class SinglePlayerButton : Button
     {
 
         public SinglePlayerButton(GameMenu parentMenu, Texture2D image, int xCoord, int yCoord, int width, int height) : base(parentMenu, image, xCoord, yCoord, width, height)
