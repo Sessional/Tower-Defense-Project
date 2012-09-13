@@ -10,7 +10,7 @@ namespace TowerDefenseGame.Content
 {
     class TextMapReader
     {
-        public string MAP_DIRECTORY = "Content//Maps//";
+        public static string MAP_DIRECTORY = "Content//Maps//";
 
         private string mapName;
         private string mapPath;
@@ -61,15 +61,15 @@ namespace TowerDefenseGame.Content
                     }
                     else if (curTile.ToString() == "=")
                     {
-                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, true, masterMap.getRootGame().pathTexture);
+                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, false, masterMap.getRootGame().pathTexture);
                     }
                     else if (curTile.ToString() == "f")
                     {
-                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, true, masterMap.getRootGame().finishTexture);
+                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, false, masterMap.getRootGame().finishTexture);
                     }
                     else if (curTile.ToString() == "s")
                     {
-                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, true, masterMap.getRootGame().startTexture);
+                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, false, masterMap.getRootGame().startTexture);
                     }
                 }
             }

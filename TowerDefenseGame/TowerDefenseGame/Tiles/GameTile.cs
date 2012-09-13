@@ -86,6 +86,7 @@ namespace TowerDefenseGame.Tiles
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="sprites"></param>
         public void Draw(SpriteBatch sprites)
         {
             sprites.Begin();
@@ -93,10 +94,21 @@ namespace TowerDefenseGame.Tiles
             sprites.End();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sprites"></param>
         public void OnHover(SpriteBatch sprites)
         {
             sprites.Begin();
-            sprites.Draw(map.getRootGame().hoverTexture, new Rectangle(xCoord * TILE_DIMENSIONS, yCoord * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
+            if (isBuildable())
+            {
+                sprites.Draw(map.getRootGame().hoverTexture, new Rectangle(xCoord * TILE_DIMENSIONS, yCoord * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
+            }
+            else
+            {
+                sprites.Draw(map.getRootGame().invalidHoverTexture, new Rectangle(xCoord * TILE_DIMENSIONS, yCoord * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
+            }
             sprites.End();
         }
 

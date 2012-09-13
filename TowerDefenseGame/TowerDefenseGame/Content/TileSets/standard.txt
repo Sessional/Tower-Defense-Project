@@ -1,0 +1,6 @@
+grass:tileGrass
+path:tilePath
+start:tileStart
+finish:tileFinish
+hover:tileHover
+invalidhover:tileInvalidHover

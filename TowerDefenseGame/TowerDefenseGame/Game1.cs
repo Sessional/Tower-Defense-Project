@@ -31,6 +31,7 @@ namespace TowerDefenseGame
         public Texture2D finishTexture;
         public Texture2D startTexture;
         public Texture2D hoverTexture;
+        public Texture2D invalidHoverTexture;
         public Texture2D menuTexture;
         public Texture2D singlePlayerButton;
 
@@ -62,12 +63,13 @@ namespace TowerDefenseGame
             startTexture = Content.Load<Texture2D>("Tiles//tileStart");
             finishTexture = Content.Load<Texture2D>("Tiles//tileFinish");
             hoverTexture = Content.Load<Texture2D>("Tiles//tileHover");
+            invalidHoverTexture = Content.Load<Texture2D>("Tiles//tileInvalidHover");
             menuTexture = Content.Load<Texture2D>("Menus//menuMain");
             singlePlayerButton = Content.Load<Texture2D>("Menus//Buttons/buttonSinglePlayer");
             //Content.Load
             currentMap = new GameMap(this, "basic", grassTexture);
             currentMenu = new GameMenu(this, menuTexture);
-            currentMenu.AddButton(new Button(currentMenu, singlePlayerButton, 350, 200, 100, 50));
+            currentMenu.AddButton(new SinglePlayerButton(currentMenu, singlePlayerButton, 350, 200, 100, 50));
             base.Initialize();
         }
 
@@ -165,16 +167,6 @@ namespace TowerDefenseGame
             {
                 currentMenu.Draw(spriteBatch);
             }
-
-
-            MouseState mouseState = Mouse.GetState();
-
-            //if (mouseState.LeftButton == ButtonState.Pressed)
-            //{
-            //}
-
-            prevMouseState = mouseState;
-
 
             base.Draw(gameTime);
         }

@@ -11,7 +11,7 @@ namespace TowerDefenseGame.Menus
     abstract class Button
     {
         private Texture2D buttonImage;
-        private GameMenu parentMenu;
+        GameMenu parentMenu;
 
         private string text;
 
@@ -31,15 +31,14 @@ namespace TowerDefenseGame.Menus
             this.height = height;
         }
 
-        public abstract void OnClick()
+        public GameMenu getParentMenu()
         {
-            parentMenu.getRootGame().setGameState(Game1.GameState.GameWindow);
+            return parentMenu;
         }
 
-        public void OnHover(SpriteBatch sprites)
-        {
+        public abstract void OnClick();
 
-        }
+        public abstract void OnHover(SpriteBatch sprites);
 
         public void Draw(SpriteBatch sprites)
         {

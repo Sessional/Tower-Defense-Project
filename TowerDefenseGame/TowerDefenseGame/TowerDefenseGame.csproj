@@ -112,8 +112,8 @@
     <Compile Include="Content\TextMapReader.cs" />
     <Compile Include="Maps\GameMap.cs" />
     <Compile Include="Maps\MapManager.cs" />
-    <Compile Include="Menus\Button.cs" />
-    <Compile Include="Menus\SinglePlayerButton.cs" />
+    <Compile Include="Menus\Buttons\Button.cs" />
+    <Compile Include="Menus\Buttons\SinglePlayerButton.cs" />
     <Compile Include="Menus\GameMenu.cs" />
     <Compile Include="Menus\MenuManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,6 +121,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Tiles\GameTile.cs" />
     <Compile Include="Tiles\TileManager.cs" />
+    <Compile Include="Tiles\TileSet.cs" />
     <Compile Include="Windows\GameWindow.cs" />
     <Compile Include="Windows\WindowManager.cs" />
   </ItemGroup>

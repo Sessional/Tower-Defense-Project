@@ -45,6 +45,9 @@ namespace TowerDefenseGame.Maps
         //######## State Methods ###########
         //##################################
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Load()
         {
             TextMapReader mapReader = new TextMapReader(this, mapName);
@@ -58,6 +61,7 @@ namespace TowerDefenseGame.Maps
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="sprites"></param>
         public void Draw(SpriteBatch sprites)
         {
             for (int x = 0; x < mapWidth; x++)
