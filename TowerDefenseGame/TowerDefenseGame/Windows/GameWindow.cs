@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
+using TowerDefenseGame.Menus;
 
 namespace TowerDefenseGame.Windows
 {
@@ -17,12 +18,26 @@ namespace TowerDefenseGame.Windows
 
         ContentManager content;
 
+        List<Button> buttons;
+
         public GameWindow(ContentManager content, WindowManager.GameWindows gameWindowType)
         {
             windowType = gameWindowType;
             this.content = content;
 
             menuBackgrounds = content.Load<Texture2D>("Menus//menuBackground");
+
+            buttons = new List<Button>();
+        }
+
+        public List<Button> GetButtons()
+        {
+            return buttons;
+        }
+
+        public void AddButton(Button button)
+        {
+            buttons.Add(button);
         }
 
         public void Apply()
