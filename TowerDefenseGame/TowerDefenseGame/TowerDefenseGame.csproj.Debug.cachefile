@@ -7,5 +7,10 @@ Content\Menus\menuMain.xnb
 Content\Menus\Buttons\buttonSinglePlayer.xnb
 Content\Tiles\tileInvalidHover.xnb
 Content\Menus\menuBackground.xnb
+Content\Menus\Buttons\buttonBack.xnb
+Content\Menus\Buttons\buttonExit.xnb
+Content\Menus\Buttons\buttonMultiPlayer.xnb
+Content\Menus\Buttons\buttonOptions.xnb
+Content\Menus\Buttons\buttonResumeGame.xnb
 Content\TileSets\standard.txt
 Content\Maps\basic.txt

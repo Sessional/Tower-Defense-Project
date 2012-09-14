@@ -119,10 +119,13 @@
     <Compile Include="Menus\MenuManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="TowerDefenseGame.cs" />
     <Compile Include="Tiles\GameTile.cs" />
     <Compile Include="Tiles\TileManager.cs" />
     <Compile Include="Tiles\TileSet.cs" />
+    <Compile Include="Windows\Buttons\Button.cs" />
+    <Compile Include="Windows\Buttons\ExitGameButton.cs" />
+    <Compile Include="Windows\Buttons\ResumeGameButton.cs" />
     <Compile Include="Windows\GameWindow.cs" />
     <Compile Include="Windows\WindowManager.cs" />
   </ItemGroup>

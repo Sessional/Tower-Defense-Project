@@ -3,24 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
-using TowerDefenseGame.Menus;
 using Microsoft.Xna.Framework;
+using TowerDefenseGame.Menus.Buttons;
 
-namespace TowerDefenseGame.Menu
+namespace TowerDefenseGame.Menus
 {
     public class GameMenu
     {
         private List<Button> buttons;
         private Texture2D backgroundImage;
-        private Game1 masterGame;
+        private TowerDefenseGame masterGame;
         private MenuManager.Menus menuState;
 
-        public GameMenu(Game1 masterGame, Texture2D bgImage)
+        int width;
+        int height;
+
+        public GameMenu(TowerDefenseGame masterGame, Texture2D bgImage)
         {
             backgroundImage = bgImage;
             this.masterGame = masterGame;
             buttons = new List<Button>();
-            masterGame.setScreenSize(700, 400);
+            width = 700;
+            height = 400;
+        }
+
+        public int GetWidth()
+        {
+            return width;
+        }
+
+        public int GetHeight()
+        {
+            return height;
         }
 
         public List<Button> getButtons()
@@ -38,7 +52,7 @@ namespace TowerDefenseGame.Menu
             buttons.Add(button);
         }
 
-        public Game1 getRootGame()
+        public TowerDefenseGame getRootGame()
         {
             return masterGame;
         }

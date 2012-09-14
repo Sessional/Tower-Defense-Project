@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using TowerDefenseGame.Menu;
+using TowerDefenseGame.Menus.Buttons;
 
 namespace TowerDefenseGame.Menus
 {
@@ -18,8 +18,9 @@ namespace TowerDefenseGame.Menus
 
         public override void OnClick()
         {
-            getParentMenu().getRootGame().setGameState(Game1.GameState.GameWindow);
             getParentMenu().getRootGame().GetMapManager().LoadMap("basic");
+            getParentMenu().getRootGame().GetMenuManager().RemoveAllButFirstMenu();
+            getParentMenu().getRootGame().SetGameState(TowerDefenseGame.GameState.GameWindow);
         }
 
         public override void OnHover(SpriteBatch sprites)

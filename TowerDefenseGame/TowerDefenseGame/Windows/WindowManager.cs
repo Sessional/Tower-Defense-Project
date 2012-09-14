@@ -9,7 +9,7 @@ namespace TowerDefenseGame.Windows
 {
     public class WindowManager
     {
-        private Game1 masterGame;
+        private TowerDefenseGame masterGame;
         private ContentManager content;
 
         private List<GameWindow> windows;
@@ -19,7 +19,7 @@ namespace TowerDefenseGame.Windows
             PauseMenu
         }
 
-        public WindowManager(Game1 masterGame, ContentManager content)
+        public WindowManager(TowerDefenseGame masterGame, ContentManager content)
         {
             this.masterGame = masterGame;
             this.content = content;
@@ -38,6 +38,10 @@ namespace TowerDefenseGame.Windows
 
         public void RemoveWindow()
         {
+            if (windows.Count == 0)
+            {
+                return;
+            }
             windows.RemoveAt(windows.Count - 1);
             if (windows.Count == 0)
             {
@@ -68,12 +72,17 @@ namespace TowerDefenseGame.Windows
             if (GetWindow() == null)
             {
                 masterGame.GetMapManager().TogglePause();
-                AddGameWindow(new GameWindow(content, GameWindows.PauseMenu));
+                AddGameWindow(new GameWindow(masterGame, content, GameWindows.PauseMenu));
             }
             else
             {
                 RemoveWindow();
             }
+        }
+
+        public void HandleClick(int x, int y)
+        {
+            GetWindow().HandleClick(x, y);
         }
     }
 }

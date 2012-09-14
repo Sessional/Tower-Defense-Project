@@ -12,9 +12,9 @@ namespace TowerDefenseGame.Tiles
 
         Dictionary<string, TileSet> tileSets;
         ContentManager content;
-        Game1 masterGame;
+        TowerDefenseGame masterGame;
 
-        public TileManager(Game1 masterGame, ContentManager content)
+        public TileManager(TowerDefenseGame masterGame, ContentManager content)
         {
             tileSets = new Dictionary<string, TileSet>();
             this.content = content;

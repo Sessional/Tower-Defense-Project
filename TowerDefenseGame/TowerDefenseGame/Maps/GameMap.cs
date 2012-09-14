@@ -21,7 +21,7 @@ namespace TowerDefenseGame.Maps
         //######## Constructors ############
         //##################################
 
-        public GameMap(Game1 masterGame, string mapName)
+        public GameMap(TowerDefenseGame masterGame, string mapName)
         {
             this.masterGame = masterGame;
             this.mapName = mapName;
@@ -38,7 +38,7 @@ namespace TowerDefenseGame.Maps
         //##################################
         //######## Instance Variables ######
         //##################################
-        Game1 masterGame;
+        TowerDefenseGame masterGame;
         GraphicsDeviceManager graphics;
 
         int mapWidth;
@@ -67,7 +67,7 @@ namespace TowerDefenseGame.Maps
             mapTiles = mapReader.getTiles();
             mapWidth = mapTiles.Length;
             mapHeight = mapTiles[0].Length;
-            masterGame.setScreenSize(getMapWidth() * GameTile.TILE_DIMENSIONS, getMapHeight() * GameTile.TILE_DIMENSIONS + 200);
+            masterGame.SetScreenSize(getMapWidth() * GameTile.TILE_DIMENSIONS, getMapHeight() * GameTile.TILE_DIMENSIONS + 200);
             
         }
 
@@ -92,7 +92,7 @@ namespace TowerDefenseGame.Maps
         //######## Getters #################
         //##################################
 
-        public Game1 getRootGame()
+        public TowerDefenseGame getRootGame()
         {
             return this.masterGame;
         }

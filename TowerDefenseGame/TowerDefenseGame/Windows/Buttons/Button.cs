@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using TowerDefenseGame.Menus;
 
-namespace TowerDefenseGame.Menus.Buttons
+namespace TowerDefenseGame.Windows.Buttons
 {
     public abstract class Button
     {
         private Texture2D buttonImage;
-        GameMenu parentMenu;
+        GameWindow parentWindow;
 
         private string text;
 
@@ -21,19 +20,19 @@ namespace TowerDefenseGame.Menus.Buttons
         private int width;
         private int height;
 
-        public Button(GameMenu parentMenu, Texture2D image, int xCoord, int yCoord, int width, int height)
+        public Button(GameWindow parentWindow, Texture2D image, int xCoord, int yCoord, int width, int height)
         {
-            this.parentMenu = parentMenu;
+            this.parentWindow = parentWindow;
             this.buttonImage = image;
-            this.xCoord = xCoord;
-            this.yCoord = yCoord;
+            this.xCoord = xCoord + GetParentWindow().GetX();
+            this.yCoord = yCoord + GetParentWindow().GetY();
             this.width = width;
             this.height = height;
         }
 
-        public GameMenu getParentMenu()
+        public GameWindow GetParentWindow()
         {
-            return parentMenu;
+            return parentWindow;
         }
 
         public abstract void OnClick();

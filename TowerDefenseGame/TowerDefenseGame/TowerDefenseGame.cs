@@ -10,7 +10,6 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using TowerDefenseGame.Maps;
 using TowerDefenseGame.Tiles;
-using TowerDefenseGame.Menu;
 using TowerDefenseGame.Menus;
 
 namespace TowerDefenseGame
@@ -18,14 +17,12 @@ namespace TowerDefenseGame
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class TowerDefenseGame : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         GameState currentState;
-        GameMap currentMap;
-        GameMenu currentMenu;
 
         public Texture2D menuTexture;
         public Texture2D singlePlayerButton;
@@ -55,7 +52,7 @@ namespace TowerDefenseGame
             GameWindow
         }
 
-        public Game1()
+        public TowerDefenseGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -76,7 +73,7 @@ namespace TowerDefenseGame
             base.Initialize();
         }
 
-        public void setScreenSize(int width, int height)
+        public void SetScreenSize(int width, int height)
         {
             graphics.PreferredBackBufferHeight = height;
             graphics.PreferredBackBufferWidth = width;
@@ -145,6 +142,10 @@ namespace TowerDefenseGame
                 {
                     GetMenuManager().OnClick(x, y);
                 }
+                else if (currentState == GameState.GameWindow)
+                {
+                    GetMapManager().OnClick(x, y);
+                }
             }
             // TODO: Add your update logic here
 
@@ -173,9 +174,17 @@ namespace TowerDefenseGame
             base.Draw(gameTime);
         }
 
-        internal void setGameState(GameState gameState)
+        internal void SetGameState(GameState gameState)
         {
             this.currentState = gameState;
+            if (gameState == GameState.MainWindow)
+            {
+                GetMenuManager().SetScreenSize();
+            }
+            else if (gameState == GameState.GameWindow)
+            {
+                //GetMapManager().SetScreenSize();
+            }
         }
     }
 }

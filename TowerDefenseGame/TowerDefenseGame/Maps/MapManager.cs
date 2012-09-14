@@ -12,7 +12,7 @@ namespace TowerDefenseGame.Maps
 {
     public class MapManager
     {
-        private Game1 masterGame;
+        private TowerDefenseGame masterGame;
 
         private ContentManager content;
 
@@ -21,7 +21,7 @@ namespace TowerDefenseGame.Maps
         private WindowManager windowManager;
 
 
-        public MapManager(Game1 masterGame, ContentManager content)
+        public MapManager(TowerDefenseGame masterGame, ContentManager content)
         {
             this.masterGame = masterGame;
             this.content = content;
@@ -29,12 +29,17 @@ namespace TowerDefenseGame.Maps
             windowManager = new WindowManager(masterGame, content);
         }
 
+        public void SetScreenSize()
+        {
+            masterGame.SetScreenSize(currentMap.getMapWidth(), currentMap.getMapHeight() + 200);
+        }
+
         public void LoadMap(string mapName)
         {
             currentMap = new GameMap(masterGame, mapName);
         }
 
-        public Game1 GetRootGame()
+        public TowerDefenseGame GetRootGame()
         {
             return masterGame;
         }
@@ -44,6 +49,16 @@ namespace TowerDefenseGame.Maps
             return windowManager;
         }
 
+        public void ExitGame()
+        {
+            currentMap = null;
+            while (GetWindowManager().GetWindow() != null)
+            {
+                GetWindowManager().RemoveWindow();
+            }
+            masterGame.SetGameState(TowerDefenseGame.GameState.MainWindow);
+        }
+
         public void HandleEscape()
         {
             GetWindowManager().HandleEscape();
@@ -51,12 +66,23 @@ namespace TowerDefenseGame.Maps
 
         public void TogglePause()
         {
+            if (currentMap == null)
+            {
+                return;
+            }
             currentMap.TogglePause();
         }
 
-        public void Update()
+        public void OnClick(int x, int y)
         {
-
+            if (currentMap.IsPaused())
+            {
+                GetWindowManager().HandleClick(Mouse.GetState().X, Mouse.GetState().Y);
+            }
+            else if (!currentMap.IsPaused())
+            {
+                
+            }
         }
 
         public void Draw(SpriteBatch sprites)

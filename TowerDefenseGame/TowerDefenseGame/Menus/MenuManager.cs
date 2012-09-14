@@ -5,15 +5,16 @@ using System.Text;
 using Microsoft.Xna.Framework.Content;
 using TowerDefenseGame.Menus;
 using Microsoft.Xna.Framework.Graphics;
+using TowerDefenseGame.Menus.Buttons;
 
-namespace TowerDefenseGame.Menu
+namespace TowerDefenseGame.Menus
 {
     public class MenuManager
     {
 
         private List<GameMenu> gameMenus;
         private ContentManager content;
-        private Game1 masterGame;
+        private TowerDefenseGame masterGame;
 
         public enum Menus
         {
@@ -48,6 +49,19 @@ namespace TowerDefenseGame.Menu
             }
         }
 
+        public void RemoveAllButFirstMenu()
+        {
+            while (gameMenus.Count > 1)
+            {
+                RemoveMenu();
+            }
+        }
+
+        public void SetScreenSize()
+        {
+            masterGame.SetScreenSize(GetMenu().GetWidth(), GetMenu().GetHeight());
+        }
+
         /// <summary>
         /// Always returns the last element of the gameMenus list.
         /// Stack-like behavior.
@@ -66,12 +80,13 @@ namespace TowerDefenseGame.Menu
             }
         }
 
-        public MenuManager(Game1 masterGame, ContentManager content)
+        public MenuManager(TowerDefenseGame masterGame, ContentManager content)
         {
             gameMenus = new List<GameMenu>();
             this.content = content;
             this.masterGame = masterGame;
             AddMenu(Menus.MainMenu);
+            SetScreenSize();
         }
 
         public void OnClick(int x, int y)
