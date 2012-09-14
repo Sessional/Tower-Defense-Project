@@ -87,7 +87,7 @@ namespace TowerDefenseGame.Maps
             }
             else if (!currentMap.IsPaused())
             {
-                
+                gameGUI.OnClick(x, y);
             }
         }
 
@@ -118,7 +118,13 @@ namespace TowerDefenseGame.Maps
 
         internal void OnRightClick(int x, int y)
         {
-            gameGUI.OnRightClick(x, y);
+            if (currentMap.IsPaused())
+            {
+            }
+            else if (!currentMap.IsPaused())
+            {
+                gameGUI.OnRightClick(x, y);
+            }
         }
     }
 }

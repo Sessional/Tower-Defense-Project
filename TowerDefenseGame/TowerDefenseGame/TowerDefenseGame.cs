@@ -19,6 +19,9 @@ namespace TowerDefenseGame
     /// </summary>
     public class TowerDefenseGame : Microsoft.Xna.Framework.Game
     {
+
+        SpriteFont guiFont;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -30,6 +33,11 @@ namespace TowerDefenseGame
         TileManager tileManager;
         MenuManager menuManager;
         MapManager mapManager;
+
+        public SpriteFont GetGUIFont()
+        {
+            return guiFont;
+        }
 
         public TileManager GetTileManager()
         {
@@ -92,6 +100,8 @@ namespace TowerDefenseGame
             tileManager = new TileManager(this, Content);
             menuManager = new MenuManager(this, Content);
             mapManager = new MapManager(this, Content);
+
+            guiFont = Content.Load<SpriteFont>("GameGUI//GUIText");
 
             // TODO: use this.Content to load your game content here
         }

@@ -49,8 +49,8 @@ namespace TowerDefenseGame.Windows
                     y = 50;
                     width = 250;
                     height = 250;
-                    AddButton(new ExitGameButton(this, content.Load<Texture2D>("Menus//Buttons//buttonExit"), 75, 100,  80, 60));
-                    AddButton(new ResumeGameButton(this, content.Load<Texture2D>("Menus//Buttons//buttonResumeGame"), 75, 125, 80, 60));
+                    AddButton(new ExitGameButton(this, content.Load<Texture2D>("Menus//Buttons//buttonExit"), 75, 75,  80, 25));
+                    AddButton(new ResumeGameButton(this, content.Load<Texture2D>("Menus//Buttons//buttonResumeGame"), 75, 200, 80, 25));
                     break;
             }
         }

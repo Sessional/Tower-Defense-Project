@@ -115,12 +115,17 @@
     <Compile Include="GameGUI\CursorModifications\SelectedBuilding.cs" />
     <Compile Include="GameGUI\CursorModifications\SelectedSkill.cs" />
     <Compile Include="GameGUI\GameGUIManager.cs" />
+    <Compile Include="GameGUI\GUIButtons\Button.cs" />
+    <Compile Include="GameGUI\GUIButtons\MenuButton.cs" />
+    <Compile Include="GameGUI\Level.cs" />
     <Compile Include="Maps\GameMap.cs" />
     <Compile Include="Maps\MapManager.cs" />
     <Compile Include="Menus\Buttons\Button.cs" />
     <Compile Include="Menus\Buttons\SinglePlayerButton.cs" />
     <Compile Include="Menus\GameMenu.cs" />
     <Compile Include="Menus\MenuManager.cs" />
+    <Compile Include="Monsters\Monster.cs" />
+    <Compile Include="Monsters\MonsterManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="TowerDefenseGame.cs" />
