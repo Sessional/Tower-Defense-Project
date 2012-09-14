@@ -171,6 +171,15 @@ namespace TowerDefenseGame
             }
             // TODO: Add your update logic here
 
+            if (currentState == GameState.GameWindow)
+            {
+                GetMapManager().Update(gameTime);
+            }
+            else if (currentState == GameState.MainWindow)
+            {
+                //GetMenuManager().Update(gameTime);
+            }
+
             prevState = Keyboard.GetState();
 
             base.Update(gameTime);

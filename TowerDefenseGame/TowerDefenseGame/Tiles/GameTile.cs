@@ -20,21 +20,25 @@ namespace TowerDefenseGame.Tiles
         /// </summary>
         public static int TILE_DIMENSIONS = 50;
 
+        public static int NORTH = 0, EAST = 1, SOUTH = 2, WEST = 3;
         //##################################
         //######## Constructors ############
         //##################################
+
+        string specialNote;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="masterMap"></param>
-        /// <param name="xCoord"></param>
-        /// <param name="yCoord"></param>
+        /// <param name="tileX"></param>
+        /// <param name="tileY"></param>
         /// <param name="isBuildable"></param>
-        public GameTile(GameMap masterMap, int xCoord, int yCoord, bool isBuildable)
+        public GameTile(GameMap masterMap, int tileX, int tileY, bool isBuildable)
         {
             this.map = masterMap;
-            this.xCoord = xCoord;
-            this.yCoord = yCoord;
+            this.tileX = tileX;
+            this.tileY = tileY;
             this.buildable = isBuildable;
             this.baseImage = map.DEFAULT_TILE_TEXTURE;
         }
@@ -43,15 +47,15 @@ namespace TowerDefenseGame.Tiles
         /// 
         /// </summary>
         /// <param name="masterMap"></param>
-        /// <param name="xCoord"></param>
-        /// <param name="yCoord"></param>
+        /// <param name="tileX"></param>
+        /// <param name="tileY"></param>
         /// <param name="isBuildable"></param>
         /// <param name="texture"></param>
-        public GameTile(GameMap masterMap, int xCoord, int yCoord, bool isBuildable, Texture2D texture)
+        public GameTile(GameMap masterMap, int tileX, int tileY, bool isBuildable, Texture2D texture)
         {
             this.map = masterMap;
-            this.xCoord = xCoord;
-            this.yCoord = yCoord;
+            this.tileX = tileX;
+            this.tileY = tileY;
             this.buildable = isBuildable;
             this.baseImage = texture;
         }
@@ -67,8 +71,8 @@ namespace TowerDefenseGame.Tiles
         private Texture2D baseImage;
         private Building occupant;
 
-        private int xCoord;
-        private int yCoord;
+        private int tileX;
+        private int tileY;
 
         //##################################
         //######## State Methods ###########
@@ -90,7 +94,7 @@ namespace TowerDefenseGame.Tiles
         public void Draw(SpriteBatch sprites)
         {
             sprites.Begin();
-            sprites.Draw(baseImage, new Rectangle(xCoord * TILE_DIMENSIONS, yCoord * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
+            sprites.Draw(baseImage, new Rectangle(tileX * TILE_DIMENSIONS, tileY * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
             sprites.End();
         }
 
@@ -103,11 +107,11 @@ namespace TowerDefenseGame.Tiles
             sprites.Begin();
             if (isBuildable())
             {
-                sprites.Draw(map.tileset.GetTexture("hover"), new Rectangle(xCoord * TILE_DIMENSIONS, yCoord * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
+                sprites.Draw(map.tileset.GetTexture("hover"), new Rectangle(tileX * TILE_DIMENSIONS, tileY * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
             }
             else
             {
-                sprites.Draw(map.tileset.GetTexture("invalidhover"), new Rectangle(xCoord * TILE_DIMENSIONS, yCoord * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
+                sprites.Draw(map.tileset.GetTexture("invalidhover"), new Rectangle(tileX * TILE_DIMENSIONS, tileY * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
             }
             sprites.End();
         }
@@ -120,18 +124,28 @@ namespace TowerDefenseGame.Tiles
         /// 
         /// </summary>
         /// <returns></returns>
-        public int getXCoord()
+        public int getTileX()
         {
-            return xCoord;
+            return tileX;
+        }
+
+        public int GetXCoord()
+        {
+            return tileX * TILE_DIMENSIONS;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public int getYCoord()
+        public int getTileY()
         {
-            return yCoord;
+            return tileY;
+        }
+
+        public int GetYCoord()
+        {
+            return tileY * TILE_DIMENSIONS;
         }
 
         /// <summary>
@@ -161,9 +175,19 @@ namespace TowerDefenseGame.Tiles
             return map;
         }
 
+        public string GetSpecialNote()
+        {
+            return specialNote;
+        }
+
         //##################################
         //######## Setters #################
         //##################################
+
+        public void SetSpecialNote(string text)
+        {
+            specialNote = text;
+        }
 
         /// <summary>
         /// 

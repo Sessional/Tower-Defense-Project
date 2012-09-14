@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using TowerDefenseGame.Tiles;
 using TowerDefenseGame.GameGUI;
+using TowerDefenseGame.Waves;
+using Microsoft.Xna.Framework;
 
 namespace TowerDefenseGame.Maps
 {
@@ -22,6 +24,8 @@ namespace TowerDefenseGame.Maps
         private WindowManager windowManager;
 
         private GameGUIManager gameGUI;
+
+        private WaveManager waveManager;
 
 
         public MapManager(TowerDefenseGame masterGame, ContentManager content)
@@ -42,7 +46,24 @@ namespace TowerDefenseGame.Maps
         {
             currentMap = new GameMap(masterGame, mapName);
             gameGUI = new GameGUIManager(this, masterGame, content, currentMap.GetMapHeight() * GameTile.TILE_DIMENSIONS, currentMap.GetMapWidth() * GameTile.TILE_DIMENSIONS);
-        
+            waveManager = new WaveManager(this, masterGame, content);
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            if (currentMap.IsPaused())
+            {
+
+            }
+            else if (!currentMap.IsPaused())
+            {
+                waveManager.Update(gameTime);
+            }
+        }
+
+        public GameTile GetSpawnTile()
+        {
+            return currentMap.GetSpawnTile();
         }
 
         public TowerDefenseGame GetRootGame()
@@ -125,6 +146,11 @@ namespace TowerDefenseGame.Maps
             {
                 gameGUI.OnRightClick(x, y);
             }
+        }
+
+        internal GameMap GetCurrentMap()
+        {
+            return currentMap;
         }
     }
 }

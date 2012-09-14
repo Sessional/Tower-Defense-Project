@@ -132,6 +132,9 @@
     <Compile Include="Tiles\GameTile.cs" />
     <Compile Include="Tiles\TileManager.cs" />
     <Compile Include="Tiles\TileSet.cs" />
+    <Compile Include="Waves\Pathing\PathedTile.cs" />
+    <Compile Include="Waves\Pathing\PathingManager.cs" />
+    <Compile Include="Waves\Pathing\Waypoint.cs" />
     <Compile Include="Waves\Wave.cs" />
     <Compile Include="Waves\WaveManager.cs" />
     <Compile Include="Windows\Buttons\Button.cs" />
