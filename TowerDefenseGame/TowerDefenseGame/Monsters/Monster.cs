@@ -33,6 +33,13 @@ namespace TowerDefenseGame.Monsters
             this.masterGame = masterGame;
             this.waveManager = waveManager;
 
+            width = 20;
+            height = 20;
+            this.x = x;
+            this.y = y;
+
+            monsterTexture = masterGame.Content.Load<Texture2D>("Monsters//GreenBall");
+
             //TODO: waveManager.GetPathingManager().
             moveRate = 5;
         }

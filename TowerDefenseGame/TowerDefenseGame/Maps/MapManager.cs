@@ -45,6 +45,10 @@ namespace TowerDefenseGame.Maps
         public void LoadMap(string mapName)
         {
             currentMap = new GameMap(masterGame, mapName);
+            if (currentMap.IsPaused())
+            {
+                currentMap.TogglePause();
+            }
             gameGUI = new GameGUIManager(this, masterGame, content, currentMap.GetMapHeight() * GameTile.TILE_DIMENSIONS, currentMap.GetMapWidth() * GameTile.TILE_DIMENSIONS);
             waveManager = new WaveManager(this, masterGame, content);
         }
@@ -116,6 +120,8 @@ namespace TowerDefenseGame.Maps
         {
             currentMap.Draw(sprites);
 
+            waveManager.Draw(sprites);
+
             if (currentMap.IsPaused())
             {
                 GetWindowManager().Draw(sprites);
@@ -151,6 +157,11 @@ namespace TowerDefenseGame.Maps
         internal GameMap GetCurrentMap()
         {
             return currentMap;
+        }
+
+        public WaveManager GetWaveManager()
+        {
+            return waveManager;
         }
     }
 }

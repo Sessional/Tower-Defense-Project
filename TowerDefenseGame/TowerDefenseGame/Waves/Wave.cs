@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using TowerDefenseGame.Monsters;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using TowerDefenseGame.Tiles;
 
 namespace TowerDefenseGame.Waves
 {
@@ -18,18 +20,19 @@ namespace TowerDefenseGame.Waves
 
         private Monster monsterType;
 
-        private TimeSpan timeUntilNextSpawn;
+        private int timeUntilNextSpawn;
 
         private List<Monster> monstersAlive;
 
         public Wave(WaveManager masterManager, TowerDefenseGame masterGame, Monster typeOfMonster)
         {
-            timeUntilNextSpawn = new TimeSpan(0, 0, 1);
+            timeUntilNextSpawn = 5;
             this.masterManager = masterManager;
             this.masterGame = masterGame;
             this.monsterType = typeOfMonster;
             liveMonsters = 0;
             monstersToSpawn = 10;
+            
             monstersAlive = new List<Monster>();
         }
 
@@ -64,7 +67,7 @@ namespace TowerDefenseGame.Waves
 
         public bool ShouldSpawnNextMonster()
         {
-            if (timeUntilNextSpawn.Seconds <= 0 && GetRemainingSpawns() > 0)
+            if (timeUntilNextSpawn <= 0 && GetRemainingSpawns() > 0)
             {
                 return true;
             }
@@ -73,8 +76,19 @@ namespace TowerDefenseGame.Waves
 
         public void SpawnNextMonster()
         {
-            this.masterGame.GetMapManager().GetSpawnTile();
-            
+            Monster newMonster = new Monster(masterGame, masterGame.GetMapManager(), masterManager, masterGame.GetMapManager().GetSpawnTile().GetXCoord() + GameTile.TILE_DIMENSIONS / 3, masterGame.GetMapManager().GetSpawnTile().GetYCoord() + GameTile.TILE_DIMENSIONS / 3);
+
+            this.monstersAlive.Add(newMonster);
+
+            timeUntilNextSpawn = 5;
+        }
+
+        public void Draw(SpriteBatch sprites)
+        {
+            foreach (Monster m in monstersAlive)
+            {
+                m.Draw(sprites);
+            }
         }
 
         internal void Update(GameTime gameTime)
@@ -84,7 +98,7 @@ namespace TowerDefenseGame.Waves
                 m.Update(gameTime);
             }
 
-            timeUntilNextSpawn.Subtract(gameTime.ElapsedGameTime);
+            timeUntilNextSpawn--;
 
             if (ShouldSpawnNextMonster())
             {

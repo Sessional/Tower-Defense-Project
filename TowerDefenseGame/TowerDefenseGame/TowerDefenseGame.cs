@@ -128,6 +128,17 @@ namespace TowerDefenseGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+
+
+            if (currentState == GameState.GameWindow)
+            {
+                GetMapManager().Update(gameTime);
+            }
+            else if (currentState == GameState.MainWindow)
+            {
+                //GetMenuManager().Update(gameTime);
+            }
+
             if (currentState == GameState.MainWindow)
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -170,15 +181,6 @@ namespace TowerDefenseGame
                 }
             }
             // TODO: Add your update logic here
-
-            if (currentState == GameState.GameWindow)
-            {
-                GetMapManager().Update(gameTime);
-            }
-            else if (currentState == GameState.MainWindow)
-            {
-                //GetMenuManager().Update(gameTime);
-            }
 
             prevState = Keyboard.GetState();
 

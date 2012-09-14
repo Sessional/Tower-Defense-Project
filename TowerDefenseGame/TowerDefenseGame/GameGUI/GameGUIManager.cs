@@ -65,6 +65,7 @@ namespace TowerDefenseGame.GameGUI
             sprites.Begin();
             sprites.Draw(backgroundTexture, new Rectangle(0, yStart, width, 200), Color.White);
             sprites.DrawString(masterGame.GetGUIFont(), "Gold: " + gold, GetRelativeLocation(10, 5), Color.Gold);
+            sprites.DrawString(masterGame.GetGUIFont(), "Time until next wave: " + masterGame.GetMapManager().GetWaveManager().GetTimeUntilNextWave(), GetRelativeLocation(10, 25), Color.Red);
             sprites.End();
 
             foreach (Button b in guiButtons)

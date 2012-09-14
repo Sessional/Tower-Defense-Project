@@ -6,6 +6,8 @@ using TowerDefenseGame.Maps;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using TowerDefenseGame.Waves.Pathing;
+using TowerDefenseGame.Monsters;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TowerDefenseGame.Waves
 {
@@ -17,25 +19,28 @@ namespace TowerDefenseGame.Waves
         private ContentManager content;
         private PathingManager pathingManager;
 
-        private TimeSpan timeUntilNextWave;
+        private int timeUntilNextWave;
 
         private Wave currentWave;
         private Wave nextWave;
 
         public WaveManager(MapManager masterManager, TowerDefenseGame masterGame, ContentManager content)
         {
-            //this.currentWave = new Wave();
+            //this.currentWave = new Wave(this, masterGame,
+            //    new Monster(masterGame, masterManager, this, masterManager.GetSpawnTile().GetXCoord(), masterManager.GetSpawnTile().GetYCoord()));
+            this.nextWave = new Wave(this, masterGame,
+                new Monster(masterGame, masterManager, this, masterManager.GetSpawnTile().GetXCoord(), masterManager.GetSpawnTile().GetYCoord()));
             this.masterManager = masterManager;
             this.masterGame = masterGame;
             this.content = content;
-            timeUntilNextWave = new TimeSpan(0, 0, 30);
+            timeUntilNextWave = 30;
 
             pathingManager = new PathingManager(masterManager.GetCurrentMap());
         }
 
         public int GetTimeUntilNextWave()
         {
-            return timeUntilNextWave.Seconds;
+            return timeUntilNextWave;
         }
         public Wave GetCurrentWave()
         {
@@ -49,6 +54,7 @@ namespace TowerDefenseGame.Waves
 
         public void ProgressWaves()
         {
+            timeUntilNextWave = 30;
             currentWave = nextWave;
 
             GenerateNextWave();
@@ -56,7 +62,8 @@ namespace TowerDefenseGame.Waves
 
         public void GenerateNextWave()
         {
-
+            this.nextWave = new Wave(this, masterGame,
+                new Monster(masterGame, masterManager, this, masterManager.GetSpawnTile().GetXCoord(), masterManager.GetSpawnTile().GetYCoord()));
         }
 
         public bool IsWaveComplete()
@@ -68,15 +75,38 @@ namespace TowerDefenseGame.Waves
             return currentWave.IsWaveComplete();
         }
 
+        public void Draw(SpriteBatch sprites)
+        {
+            if (GetCurrentWave() == null)
+            {
+                return;
+            }
+            GetCurrentWave().Draw(sprites);
+        }
+
         public void Update(GameTime gameTime)
         {
             if (IsWaveComplete())
             {
-                timeUntilNextWave.Subtract(gameTime.ElapsedGameTime);
+                timeUntilNextWave--;
+
+                if (timeUntilNextWave <= 0)
+                {
+                    ProgressWaves();
+                }
             }
             else
             {
-                //TODO:GetCurrentWave().Update(gameTime);
+                if (GetCurrentWave() == null)
+                {
+                    timeUntilNextWave--;
+                    if (timeUntilNextWave <= 0)
+                    {
+                        ProgressWaves();
+                    }
+                    return;
+                }
+                GetCurrentWave().Update(gameTime);
             }
         }
     }

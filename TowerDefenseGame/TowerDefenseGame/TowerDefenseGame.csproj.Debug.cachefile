@@ -14,5 +14,6 @@ Content\Menus\Buttons\buttonOptions.xnb
 Content\Menus\Buttons\buttonResumeGame.xnb
 Content\GameGUI\gameGUIBackground.xnb
 Content\GameGUI\GUIText.xnb
+Content\Monsters\GreenBall.xnb
 Content\TileSets\standard.txt
 Content\Maps\basic.txt
