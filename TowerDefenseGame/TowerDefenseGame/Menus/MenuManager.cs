@@ -104,5 +104,9 @@ namespace TowerDefenseGame.Menus
         {
             GetMenu().Draw(sprites);
         }
+
+        internal void OnRightClick(int x, int y)
+        {
+        }
     }
 }

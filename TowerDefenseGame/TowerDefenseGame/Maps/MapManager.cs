@@ -7,6 +7,7 @@ using TowerDefenseGame.Windows;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using TowerDefenseGame.Tiles;
+using TowerDefenseGame.GameGUI;
 
 namespace TowerDefenseGame.Maps
 {
@@ -20,6 +21,8 @@ namespace TowerDefenseGame.Maps
 
         private WindowManager windowManager;
 
+        private GameGUIManager gameGUI;
+
 
         public MapManager(TowerDefenseGame masterGame, ContentManager content)
         {
@@ -27,16 +30,19 @@ namespace TowerDefenseGame.Maps
             this.content = content;
 
             windowManager = new WindowManager(masterGame, content);
+
         }
 
         public void SetScreenSize()
         {
-            masterGame.SetScreenSize(currentMap.getMapWidth(), currentMap.getMapHeight() + 200);
+            masterGame.SetScreenSize(currentMap.GetMapWidth() * GameTile.TILE_DIMENSIONS, currentMap.GetMapHeight() * GameTile.TILE_DIMENSIONS + 200);
         }
 
         public void LoadMap(string mapName)
         {
             currentMap = new GameMap(masterGame, mapName);
+            gameGUI = new GameGUIManager(this, masterGame, content, currentMap.GetMapHeight() * GameTile.TILE_DIMENSIONS, currentMap.GetMapWidth() * GameTile.TILE_DIMENSIONS);
+        
         }
 
         public TowerDefenseGame GetRootGame()
@@ -89,7 +95,6 @@ namespace TowerDefenseGame.Maps
         {
             currentMap.Draw(sprites);
 
-
             if (currentMap.IsPaused())
             {
                 GetWindowManager().Draw(sprites);
@@ -100,14 +105,20 @@ namespace TowerDefenseGame.Maps
                 int y = Mouse.GetState().Y;
                 try
                 {
-                    GameTile tile = currentMap.getTile((int)x / GameTile.TILE_DIMENSIONS, (int)y / GameTile.TILE_DIMENSIONS);
+                    GameTile tile = currentMap.GetTile((int)x / GameTile.TILE_DIMENSIONS, (int)y / GameTile.TILE_DIMENSIONS);
                     tile.OnHover(sprites);
                 }
                 catch (IndexOutOfRangeException)
                 {
-
                 }
             }
+
+            gameGUI.Draw(sprites);
+        }
+
+        internal void OnRightClick(int x, int y)
+        {
+            gameGUI.OnRightClick(x, y);
         }
     }
 }

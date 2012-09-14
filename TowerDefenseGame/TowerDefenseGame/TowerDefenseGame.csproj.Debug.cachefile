@@ -12,5 +12,6 @@ Content\Menus\Buttons\buttonExit.xnb
 Content\Menus\Buttons\buttonMultiPlayer.xnb
 Content\Menus\Buttons\buttonOptions.xnb
 Content\Menus\Buttons\buttonResumeGame.xnb
+Content\GameGUI\gameGUIBackground.xnb
 Content\TileSets\standard.txt
 Content\Maps\basic.txt

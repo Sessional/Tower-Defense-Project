@@ -67,7 +67,7 @@ namespace TowerDefenseGame.Maps
             mapTiles = mapReader.getTiles();
             mapWidth = mapTiles.Length;
             mapHeight = mapTiles[0].Length;
-            masterGame.SetScreenSize(getMapWidth() * GameTile.TILE_DIMENSIONS, getMapHeight() * GameTile.TILE_DIMENSIONS + 200);
+            masterGame.SetScreenSize(GetMapWidth() * GameTile.TILE_DIMENSIONS, GetMapHeight() * GameTile.TILE_DIMENSIONS + 200);
             
         }
 
@@ -92,7 +92,7 @@ namespace TowerDefenseGame.Maps
         //######## Getters #################
         //##################################
 
-        public TowerDefenseGame getRootGame()
+        public TowerDefenseGame GetRootGame()
         {
             return this.masterGame;
         }
@@ -101,7 +101,7 @@ namespace TowerDefenseGame.Maps
         /// 
         /// </summary>
         /// <returns></returns>
-        public int getMapWidth()
+        public int GetMapWidth()
         {
             return mapWidth;
         }
@@ -110,7 +110,7 @@ namespace TowerDefenseGame.Maps
         /// 
         /// </summary>
         /// <returns></returns>
-        public int getMapHeight()
+        public int GetMapHeight()
         {
             return mapHeight;
         }
@@ -121,7 +121,7 @@ namespace TowerDefenseGame.Maps
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public GameTile getTile(int x, int y)
+        public GameTile GetTile(int x, int y)
         {
             return mapTiles[x][y];
         }
@@ -131,7 +131,7 @@ namespace TowerDefenseGame.Maps
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
-        public GameTile[] getTiles(int x)
+        public GameTile[] GetTiles(int x)
         {
             return mapTiles[x];
         }

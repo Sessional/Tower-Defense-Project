@@ -111,6 +111,10 @@
     <Compile Include="Buildings\Towers\Tower.cs" />
     <Compile Include="Content\TileSetReader.cs" />
     <Compile Include="Content\TextMapReader.cs" />
+    <Compile Include="GameGUI\CursorModifications\CursorModification.cs" />
+    <Compile Include="GameGUI\CursorModifications\SelectedBuilding.cs" />
+    <Compile Include="GameGUI\CursorModifications\SelectedSkill.cs" />
+    <Compile Include="GameGUI\GameGUIManager.cs" />
     <Compile Include="Maps\GameMap.cs" />
     <Compile Include="Maps\MapManager.cs" />
     <Compile Include="Menus\Buttons\Button.cs" />

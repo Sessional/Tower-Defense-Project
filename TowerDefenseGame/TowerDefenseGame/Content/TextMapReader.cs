@@ -67,19 +67,19 @@ namespace TowerDefenseGame.Content
                     char curTile = lines[y][x];
                     if (curTile.ToString() == "#")
                     {
-                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, true, masterMap.getRootGame().GetTileManager().getTileSet("standard").GetTexture("grass"));
+                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, true, masterMap.GetRootGame().GetTileManager().getTileSet("standard").GetTexture("grass"));
                     }
                     else if (curTile.ToString() == "=")
                     {
-                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, false, masterMap.getRootGame().GetTileManager().getTileSet("standard").GetTexture("path"));
+                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, false, masterMap.GetRootGame().GetTileManager().getTileSet("standard").GetTexture("path"));
                     }
                     else if (curTile.ToString() == "f")
                     {
-                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, false, masterMap.getRootGame().GetTileManager().getTileSet("standard").GetTexture("finish"));
+                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, false, masterMap.GetRootGame().GetTileManager().getTileSet("standard").GetTexture("finish"));
                     }
                     else if (curTile.ToString() == "s")
                     {
-                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, false, masterMap.getRootGame().GetTileManager().getTileSet("standard").GetTexture("start"));
+                        gameTiles[x][y] = new GameTile(this.masterMap, x, y, false, masterMap.GetRootGame().GetTileManager().getTileSet("standard").GetTexture("start"));
                     }
                 }
             }

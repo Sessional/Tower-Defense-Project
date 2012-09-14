@@ -147,6 +147,18 @@ namespace TowerDefenseGame
                     GetMapManager().OnClick(x, y);
                 }
             }
+
+            if (Mouse.GetState().RightButton == ButtonState.Pressed)
+            {
+                if (currentState == GameState.MainWindow)
+                {
+                    GetMenuManager().OnRightClick(x, y);
+                }
+                else if (currentState == GameState.GameWindow)
+                {
+                    GetMapManager().OnRightClick(x, y);
+                }
+            }
             // TODO: Add your update logic here
 
             prevState = Keyboard.GetState();
