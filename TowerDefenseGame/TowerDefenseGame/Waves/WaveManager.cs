@@ -19,6 +19,8 @@ namespace TowerDefenseGame.Waves
 
         private int timeUntilNextWave;
 
+        private int waveNumber;
+
         private Wave currentWave;
         private Wave nextWave;
 
@@ -27,10 +29,16 @@ namespace TowerDefenseGame.Waves
             this.masterManager = masterManager;
             this.masterGame = masterGame;
             this.content = content;
+            waveNumber = 0;
             timeUntilNextWave = 30;
-            //this.currentWave = new Wave(this, masterGame,
-            //    new Monster(masterGame, masterManager, this, masterManager.GetSpawnTile().GetXCoord(), masterManager.GetSpawnTile().GetYCoord()));
+            this.nextWave = new Wave(this, masterGame,
+                new Monster(masterGame, masterManager, this, masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord()));
             
+        }
+
+        public int GetWaveNumber()
+        {
+            return waveNumber;
         }
 
         public int GetTimeUntilNextWave()
@@ -52,6 +60,7 @@ namespace TowerDefenseGame.Waves
             timeUntilNextWave = 30;
             currentWave = nextWave;
 
+            waveNumber++;
             GenerateNextWave();
         }
 

@@ -16,7 +16,8 @@ namespace TowerDefenseGame.Windows
 
         public enum GameWindows
         {
-            PauseMenu
+            PauseMenu,
+            DefeatWindow
         }
 
         public WindowManager(TowerDefenseGame masterGame, ContentManager content)

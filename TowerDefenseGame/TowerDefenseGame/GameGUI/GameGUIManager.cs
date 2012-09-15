@@ -25,6 +25,7 @@ namespace TowerDefenseGame.GameGUI
 
         private int gold;
         private int exp;
+        private int lives;
 
         private Texture2D backgroundTexture;
         private List<Button> guiButtons;
@@ -38,9 +39,10 @@ namespace TowerDefenseGame.GameGUI
             this.width = width;
 
             guiButtons = new List<Button>();
-            guiButtons.Add(new MenuButton(masterGame, content.Load<Texture2D>("Menus//Buttons//buttonOptions"), GetRelativeLocationX(width - 100), GetRelativeLocationY(10), 85, 40));
+            guiButtons.Add(new MenuButton(masterGame, content.Load<Texture2D>("Menus//Buttons//buttonOptions"), GetRelativeLocationX(width - 100), GetRelativeLocationY(10), 115, 40));
 
             this.gold = 75;
+            this.lives = 50;
 
             backgroundTexture = content.Load<Texture2D>("GameGUI//gameGUIBackground");
         }
@@ -60,19 +62,26 @@ namespace TowerDefenseGame.GameGUI
             return new Vector2((float)GetRelativeLocationX(x), (float)GetRelativeLocationY(y));
         }
 
+        public void LoseLife()
+        {
+            lives--;
+        }
+
         public void Draw(SpriteBatch sprites)
         {
             sprites.Begin();
             sprites.Draw(backgroundTexture, new Rectangle(0, yStart, width, 200), Color.White);
             sprites.DrawString(masterGame.GetGUIFont(), "Gold: " + gold, GetRelativeLocation(10, 5), Color.Gold);
+            sprites.DrawString(masterGame.GetGUIFont(), "Lives: " + lives, GetRelativeLocation(10, 25), Color.White);
             if (masterGame.GetMapManager().GetWaveManager().GetCurrentWave() == null || masterGame.GetMapManager().GetWaveManager().IsWaveComplete())
             {
-                sprites.DrawString(masterGame.GetGUIFont(), "Time until next wave: " + masterGame.GetMapManager().GetWaveManager().GetTimeUntilNextWave(), GetRelativeLocation(10, 25), Color.Red);
+                sprites.DrawString(masterGame.GetGUIFont(), "Time until next wave: " + masterGame.GetMapManager().GetWaveManager().GetTimeUntilNextWave(), GetRelativeLocation(10, 45), Color.Red);
             }
             else if (masterGame.GetMapManager().GetWaveManager().GetCurrentWave() != null)
             {
-                sprites.DrawString(masterGame.GetGUIFont(), "Monsters remaining: " + masterGame.GetMapManager().GetWaveManager().GetCurrentWave().GetTotalMonsters(), GetRelativeLocation(10, 25), Color.Red);
+                sprites.DrawString(masterGame.GetGUIFont(), "Monsters remaining: " + masterGame.GetMapManager().GetWaveManager().GetCurrentWave().GetRemainingMonsters(), GetRelativeLocation(10, 45), Color.Red);
             }
+            sprites.DrawString(masterGame.GetGUIFont(), "Current Wave: " + masterGame.GetMapManager().GetWaveManager().GetWaveNumber(), GetRelativeLocation(10, 65), Color.Red);
             sprites.End();
 
             foreach (Button b in guiButtons)

@@ -168,5 +168,10 @@ namespace TowerDefenseGame.Maps
         {
             return waveManager;
         }
+
+        public GameGUIManager GetGameGUI()
+        {
+            return gameGUI;
+        }
     }
 }

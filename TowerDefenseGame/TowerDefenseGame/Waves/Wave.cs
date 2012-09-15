@@ -101,6 +101,10 @@ namespace TowerDefenseGame.Waves
             List<Monster> mToRemove = new List<Monster>();
             foreach (Monster m in monstersAlive)
             {
+                if (m.isLeak)
+                {
+                    masterGame.GetMapManager().GetGameGUI().LoseLife();
+                }
                 if (m.isDead || m.isLeak)
                 {
                     mToRemove.Add(m);
