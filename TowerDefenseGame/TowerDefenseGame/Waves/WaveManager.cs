@@ -5,7 +5,6 @@ using System.Text;
 using TowerDefenseGame.Maps;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
-using TowerDefenseGame.Waves.Pathing;
 using TowerDefenseGame.Monsters;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -17,7 +16,6 @@ namespace TowerDefenseGame.Waves
         private MapManager masterManager;
         private TowerDefenseGame masterGame;
         private ContentManager content;
-        private PathingManager pathingManager;
 
         private int timeUntilNextWave;
 
@@ -26,16 +24,13 @@ namespace TowerDefenseGame.Waves
 
         public WaveManager(MapManager masterManager, TowerDefenseGame masterGame, ContentManager content)
         {
-            //this.currentWave = new Wave(this, masterGame,
-            //    new Monster(masterGame, masterManager, this, masterManager.GetSpawnTile().GetXCoord(), masterManager.GetSpawnTile().GetYCoord()));
-            this.nextWave = new Wave(this, masterGame,
-                new Monster(masterGame, masterManager, this, masterManager.GetSpawnTile().GetXCoord(), masterManager.GetSpawnTile().GetYCoord()));
             this.masterManager = masterManager;
             this.masterGame = masterGame;
             this.content = content;
             timeUntilNextWave = 30;
-
-            pathingManager = new PathingManager(masterManager.GetCurrentMap());
+            //this.currentWave = new Wave(this, masterGame,
+            //    new Monster(masterGame, masterManager, this, masterManager.GetSpawnTile().GetXCoord(), masterManager.GetSpawnTile().GetYCoord()));
+            
         }
 
         public int GetTimeUntilNextWave()
@@ -63,7 +58,7 @@ namespace TowerDefenseGame.Waves
         public void GenerateNextWave()
         {
             this.nextWave = new Wave(this, masterGame,
-                new Monster(masterGame, masterManager, this, masterManager.GetSpawnTile().GetXCoord(), masterManager.GetSpawnTile().GetYCoord()));
+                new Monster(masterGame, masterManager, this, masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord()));
         }
 
         public bool IsWaveComplete()

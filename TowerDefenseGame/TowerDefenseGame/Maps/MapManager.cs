@@ -65,9 +65,14 @@ namespace TowerDefenseGame.Maps
             }
         }
 
-        public GameTile GetSpawnTile()
+        public List<GameTile> GetSpawnTiles()
         {
-            return currentMap.GetSpawnTile();
+            return currentMap.GetSpawnTiles();
+        }
+
+        public List<GameTile> GetFinishTiles()
+        {
+            return currentMap.GetFinishTiles();
         }
 
         public TowerDefenseGame GetRootGame()

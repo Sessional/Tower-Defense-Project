@@ -26,7 +26,7 @@ namespace TowerDefenseGame.Waves
 
         public Wave(WaveManager masterManager, TowerDefenseGame masterGame, Monster typeOfMonster)
         {
-            timeUntilNextSpawn = 5;
+            timeUntilNextSpawn = 100;
             this.masterManager = masterManager;
             this.masterGame = masterGame;
             this.monsterType = typeOfMonster;
@@ -38,7 +38,7 @@ namespace TowerDefenseGame.Waves
 
         public int getLiveMonsters()
         {
-            return liveMonsters;
+            return monstersAlive.Count;
         }
 
         public int GetRemainingSpawns()
@@ -76,11 +76,12 @@ namespace TowerDefenseGame.Waves
 
         public void SpawnNextMonster()
         {
-            Monster newMonster = new Monster(masterGame, masterGame.GetMapManager(), masterManager, masterGame.GetMapManager().GetSpawnTile().GetXCoord() + GameTile.TILE_DIMENSIONS / 3, masterGame.GetMapManager().GetSpawnTile().GetYCoord() + GameTile.TILE_DIMENSIONS / 3);
+            Monster newMonster = new Monster(masterGame, masterGame.GetMapManager(), masterManager, masterGame.GetMapManager().GetSpawnTiles()[0].GetXCoord() + GameTile.TILE_DIMENSIONS / 3, masterGame.GetMapManager().GetSpawnTiles()[0].GetYCoord() + GameTile.TILE_DIMENSIONS / 3);
 
             this.monstersAlive.Add(newMonster);
+            monstersToSpawn--;
 
-            timeUntilNextSpawn = 5;
+            timeUntilNextSpawn = 100;
         }
 
         public void Draw(SpriteBatch sprites)
@@ -93,9 +94,23 @@ namespace TowerDefenseGame.Waves
 
         internal void Update(GameTime gameTime)
         {
+            List<Monster> mToRemove = new List<Monster>();
             foreach (Monster m in monstersAlive)
             {
-                m.Update(gameTime);
+                if (m.isDead)
+                {
+                    mToRemove.Add(m);
+                }
+                else
+                {
+                    m.Update(gameTime);
+                }
+            }
+
+            while (mToRemove.Count > 0)
+            {
+                monstersAlive.Remove(mToRemove[0]);
+                mToRemove.RemoveAt(0);
             }
 
             timeUntilNextSpawn--;

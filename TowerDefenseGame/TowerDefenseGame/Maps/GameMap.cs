@@ -134,34 +134,36 @@ namespace TowerDefenseGame.Maps
             return GetTile(tileX, tileY);
         }
 
-        public GameTile GetSpawnTile()
+        public List<GameTile> GetSpawnTiles()
         {
+            List<GameTile> spawnTiles = new List<GameTile>();
             for (int x = 0; x < mapTiles.Length; x++)
             {
                 for (int y = 0; y < mapTiles[x].Length; y++)
                 {
                     if (mapTiles[x][y].getBaseImage() == tileset.GetTexture("start"))
                     {
-                        return mapTiles[x][y];
+                        spawnTiles.Add(mapTiles[x][y]);
                     }
                 }
             }
-            return null;
+            return spawnTiles;
         }
 
-        public GameTile GetFinishTile()
+        public List<GameTile> GetFinishTiles()
         {
+            List<GameTile> finishTiles = new List<GameTile>();
             for (int x = 0; x < mapTiles.Length; x++)
             {
                 for (int y = 0; y < mapTiles[x].Length; y++)
                 {
                     if (mapTiles[x][y].getBaseImage() == tileset.GetTexture("finish"))
                     {
-                        return mapTiles[x][y];
+                        finishTiles.Add(mapTiles[x][y]);
                     }
                 }
             }
-            return null;
+            return finishTiles;
         }
 
         /// <summary>

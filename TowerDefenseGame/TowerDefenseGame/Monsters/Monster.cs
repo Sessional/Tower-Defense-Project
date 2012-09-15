@@ -12,12 +12,14 @@ namespace TowerDefenseGame.Monsters
 {
     public class Monster
     {
-        int x;
-        int y;
+        float x;
+        float y;
         int width;
         int height;
 
-        int moveRate;
+        float moveRate;
+
+        public bool isDead = false;
 
         GameTile currentTile;
         GameTile destinationTile;
@@ -40,19 +42,25 @@ namespace TowerDefenseGame.Monsters
 
             monsterTexture = masterGame.Content.Load<Texture2D>("Monsters//GreenBall");
 
-            //TODO: waveManager.GetPathingManager().
-            moveRate = 5;
+            currentTile = mapManager.GetCurrentMap().GetTileByCoord(x, y);
+
+            moveRate = .3f;
         }
 
         internal void Update(GameTime gameTime)
         {
-            
+            x += moveRate;
+
+            if (masterGame.GetMapManager().GetCurrentMap().GetTileByCoord((int)x, (int)y).getBaseImage() == masterGame.GetMapManager().GetCurrentMap().tileset.GetTexture("finish"))
+            {
+                this.isDead = true;
+            }
         }
 
         public void Draw(SpriteBatch sprites)
         {
             sprites.Begin();
-            sprites.Draw(monsterTexture, new Rectangle(x, y, width, height), Color.White);
+            sprites.Draw(monsterTexture, new Rectangle((int)x, (int)y, width, height), Color.White);
             sprites.End();
         }
     }
