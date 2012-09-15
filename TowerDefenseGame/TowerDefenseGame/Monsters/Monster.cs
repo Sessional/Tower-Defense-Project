@@ -26,9 +26,6 @@ namespace TowerDefenseGame.Monsters
         public bool isDead = false;
         public bool isLeak = false;
 
-        GameTile currentTile;
-        GameTile previousTile;
-        GameTile destinationTile;
         Texture2D monsterTexture;
 
         TowerDefenseGame masterGame;
@@ -47,8 +44,6 @@ namespace TowerDefenseGame.Monsters
             this.y = y;
 
             monsterTexture = masterGame.Content.Load<Texture2D>("Monsters//GreenBall");
-
-            currentTile = mapManager.GetCurrentMap().GetTileByCoord(x, y);
 
             GetNextDirection();
 
@@ -135,8 +130,6 @@ namespace TowerDefenseGame.Monsters
             }
         }
 
-
-        int i = 1;
         internal void Update(GameTime gameTime)
         {
 
@@ -168,14 +161,29 @@ namespace TowerDefenseGame.Monsters
                 x += moveRate;
                 GetNextDirection();
             }
-            i++;
+        }
+
+        public void Damage(int damage)
+        {
+            this.health -= damage;
+        }
+
+        public GameTile GetPosition()
+        {
+            return mapManager.GetCurrentMap().GetTileByCoord((int)x, (int)y);
         }
 
         public void Draw(SpriteBatch sprites)
         {
             sprites.Begin();
             sprites.Draw(monsterTexture, new Rectangle((int)x, (int)y, width, height), Color.White);
+            DrawHealthBar(sprites);
             sprites.End();
+        }
+
+        public void DrawHealthBar(SpriteBatch sprites)
+        {
+
         }
     }
 }

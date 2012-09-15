@@ -96,9 +96,12 @@ namespace TowerDefenseGame.Tiles
             sprites.Begin();
             sprites.Draw(baseImage, new Rectangle(tileX * TILE_DIMENSIONS, tileY * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
             sprites.End();
+        }
+
+        public void DrawOccupants(SpriteBatch sprites)
+        {
             if (getOccupant() != null)
             {
-                Console.WriteLine("Has occupant!");
                 occupant.Draw(sprites);
             }
         }
@@ -119,6 +122,14 @@ namespace TowerDefenseGame.Tiles
                 sprites.Draw(map.tileset.GetTexture("invalidhover"), new Rectangle(tileX * TILE_DIMENSIONS, tileY * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
             }
             sprites.End();
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            if (occupant != null)
+            {
+                occupant.Update(gameTime);
+            }
         }
 
         //##################################
@@ -248,6 +259,12 @@ namespace TowerDefenseGame.Tiles
                 return true;
             }
             return false;
+        }
+
+        public double DistanceTo(GameTile tile)
+        {
+            return Math.Abs(Math.Sqrt((this.getTileX() - tile.getTileX()) * (this.getTileX() - tile.getTileX())
+                + (this.getTileY() - tile.getTileY()) * (this.getTileY() - tile.getTileY())));
         }
     }
 }

@@ -62,6 +62,7 @@ namespace TowerDefenseGame.Maps
             else if (!currentMap.IsPaused())
             {
                 waveManager.Update(gameTime);
+                currentMap.Update(gameTime);
                 gameGUI.Update(gameTime);
             }
         }

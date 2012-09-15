@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Buildings\Building.cs" />
     <Compile Include="Buildings\BuildingManager.cs" />
+    <Compile Include="Buildings\Towers\Projectile.cs" />
     <Compile Include="Buildings\Towers\Tower.cs" />
     <Compile Include="Content\TileSetReader.cs" />
     <Compile Include="Content\TextMapReader.cs" />
@@ -143,7 +144,6 @@
     <Compile Include="Windows\WindowManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Content\TileSets\standard.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 
 namespace TowerDefenseGame.Buildings
 {
-    public class Building
+    public abstract class Building
     {
         private TowerDefenseGame masterGame;
         private ContentManager content;
@@ -37,12 +37,9 @@ namespace TowerDefenseGame.Buildings
             this.buildingTexture = image;
         }
 
-        public void Draw(SpriteBatch sprites)
-        {
-            sprites.Begin();
-            sprites.Draw(buildingTexture, new Rectangle(tile.GetXCoord() + 10, tile.GetYCoord() + 10, DIMENSION, DIMENSION), Color.White);
-            sprites.End();
-        }
+        public abstract void Draw(SpriteBatch sprites);
+
+        public abstract void Update(GameTime gameTime);
 
         public void OnClick()
         {
@@ -50,6 +47,26 @@ namespace TowerDefenseGame.Buildings
         }
 
         public void OnRightClick()
+        {
+
+        }
+
+        public Texture2D GetTexture()
+        {
+            return buildingTexture;
+        }
+
+        public GameTile GetParentTile()
+        {
+            return tile;
+        }
+
+        public TowerDefenseGame GetRootGame()
+        {
+            return this.masterGame;
+        }
+
+        public void DrawContextMenu(SpriteBatch sprites)
         {
 
         }

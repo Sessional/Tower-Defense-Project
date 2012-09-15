@@ -17,5 +17,6 @@ Content\GameGUI\GUIText.xnb
 Content\Monsters\GreenBall.xnb
 Content\Towers\TowerBlue.xnb
 Content\Tiles\tileSelection.xnb
+Content\Towers\Projectiles\Projectile.xnb
 Content\TileSets\standard.txt
 Content\Maps\basic.txt

@@ -103,6 +103,14 @@ namespace TowerDefenseGame.Maps
                 sprites.End();
             }
 
+            for (int x = 0; x < mapWidth; x++)
+            {
+                for (int y = 0; y < mapHeight; y++)
+                {
+                    mapTiles[x][y].DrawOccupants(sprites);
+                }
+            }
+
         }
 
         public void OnClick(int x, int y)
@@ -123,6 +131,17 @@ namespace TowerDefenseGame.Maps
         public bool HasSelectionChanged()
         {
             return selectionHasChanged;
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            for (int x = 0; x < mapWidth; x++)
+            {
+                for (int y = 0; y < mapHeight; y++)
+                {
+                    mapTiles[x][y].Update(gameTime);
+                }
+            }
         }
 
         //##################################

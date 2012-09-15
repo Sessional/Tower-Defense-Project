@@ -29,9 +29,14 @@ namespace TowerDefenseGame.Waves
             this.masterManager = masterManager;
             this.masterGame = masterGame;
             this.monsterType = typeOfMonster;
-            monstersToSpawn = 10;
+            monstersToSpawn = 10 + masterManager.GetWaveNumber() * 3;
             
             monstersAlive = new List<Monster>();
+        }
+
+        public List<Monster> GetMonsters()
+        {
+            return monstersAlive;
         }
 
         public int GetLiveMonsters()
