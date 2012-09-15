@@ -234,5 +234,15 @@ namespace TowerDefenseGame.Tiles
 
         }
 
+
+        internal bool IsPath()
+        {
+            if (this.baseImage == this.getMap().tileset.GetTexture("path") || this.baseImage == this.getMap().tileset.GetTexture("start") ||
+                this.baseImage == this.getMap().tileset.GetTexture("finish"))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -17,11 +17,17 @@ namespace TowerDefenseGame.Monsters
         int width;
         int height;
 
+        int currentDirection = -1;
+
         float moveRate;
 
+        public int health = 20;
+
         public bool isDead = false;
+        public bool isLeak = false;
 
         GameTile currentTile;
+        GameTile previousTile;
         GameTile destinationTile;
         Texture2D monsterTexture;
 
@@ -35,8 +41,8 @@ namespace TowerDefenseGame.Monsters
             this.masterGame = masterGame;
             this.waveManager = waveManager;
 
-            width = 20;
-            height = 20;
+            width = 10;
+            height = 10;
             this.x = x;
             this.y = y;
 
@@ -44,17 +50,125 @@ namespace TowerDefenseGame.Monsters
 
             currentTile = mapManager.GetCurrentMap().GetTileByCoord(x, y);
 
-            moveRate = .3f;
+            GetNextDirection();
+
+            moveRate = 0.5f;
         }
 
+        public void GetNextDirection()
+        {
+            GameTile curTile = mapManager.GetCurrentMap().GetTileByCoord((int)x, (int)y);
+            int tileX = curTile.getTileX();
+            int tileY = curTile.getTileY();
+
+            if (currentDirection == GameTile.EAST)
+            {
+                if (!mapManager.GetCurrentMap().GetTileByCoord((int)x + 30, (int)y).IsPath())
+                {
+                    if (mapManager.GetCurrentMap().GetTile(tileX, tileY + 1).IsPath())
+                    {
+                        currentDirection = GameTile.SOUTH;
+                    }
+                    else if (mapManager.GetCurrentMap().GetTile(tileX, tileY - 1).IsPath())
+                    {
+                        currentDirection = GameTile.NORTH;
+                    }
+                }
+            }
+            else if (currentDirection == GameTile.NORTH)
+            {
+                if (!mapManager.GetCurrentMap().GetTileByCoord((int)x, (int)y - 17).IsPath())
+                {
+                    if (mapManager.GetCurrentMap().GetTile(tileX + 1, tileY).IsPath())
+                    {
+                        currentDirection = GameTile.EAST;
+                    }
+                    else if (mapManager.GetCurrentMap().GetTile(tileX - 1, tileY).IsPath())
+                    {
+                        currentDirection = GameTile.WEST;
+                    }
+                }
+            }
+            else if (currentDirection == GameTile.WEST)
+            {
+                if (!mapManager.GetCurrentMap().GetTileByCoord((int)x - 30, (int)y).IsPath())
+                {
+                    if (mapManager.GetCurrentMap().GetTile(tileX, tileY + 1).IsPath())
+                    {
+                        currentDirection = GameTile.SOUTH;
+                    }
+                    else if (mapManager.GetCurrentMap().GetTile(tileX, tileY - 1).IsPath())
+                    {
+                        currentDirection = GameTile.NORTH;
+                    }
+                }
+            }
+            else if (currentDirection == GameTile.SOUTH)
+            {
+                if (!mapManager.GetCurrentMap().GetTileByCoord((int)x, (int)y + 30).IsPath())
+                {
+                    if (mapManager.GetCurrentMap().GetTile(tileX + 1, tileY).IsPath())
+                    {
+                        currentDirection = GameTile.EAST;
+                    }
+                    else if (mapManager.GetCurrentMap().GetTile(tileX - 1, tileY).IsPath())
+                    {
+                        currentDirection = GameTile.WEST;
+                    }
+                }
+            }
+            else
+            {
+                if (!mapManager.GetCurrentMap().GetTile(tileX, tileY + 1).IsPath())
+                {
+                    currentDirection = GameTile.SOUTH;
+                } else if (!mapManager.GetCurrentMap().GetTile(tileX, tileY - 1).IsPath())
+                {
+                    currentDirection = GameTile.NORTH;
+                } else if (!mapManager.GetCurrentMap().GetTile(tileX + 1, tileY).IsPath())
+                {
+                    currentDirection = GameTile.EAST;
+                } else if (!mapManager.GetCurrentMap().GetTile(tileX - 1, tileY).IsPath())
+                {
+                    currentDirection = GameTile.WEST;
+                }
+            }
+        }
+
+
+        int i = 1;
         internal void Update(GameTime gameTime)
         {
-            x += moveRate;
 
             if (masterGame.GetMapManager().GetCurrentMap().GetTileByCoord((int)x, (int)y).getBaseImage() == masterGame.GetMapManager().GetCurrentMap().tileset.GetTexture("finish"))
             {
+                this.isLeak = true;
+            }
+            else if (this.health <= 0)
+            {
                 this.isDead = true;
             }
+            else if (currentDirection == GameTile.NORTH)
+            {
+                y -= moveRate;
+                GetNextDirection();
+            }
+            else if (currentDirection == GameTile.SOUTH)
+            {
+                y += moveRate;
+                GetNextDirection();
+            }
+            else if (currentDirection == GameTile.WEST)
+            {
+                x -= moveRate;
+                GetNextDirection();
+            }
+            else if (currentDirection == GameTile.EAST)
+            {
+                x += moveRate;
+                GetNextDirection();
+            }
+            i++;
         }
 
         public void Draw(SpriteBatch sprites)

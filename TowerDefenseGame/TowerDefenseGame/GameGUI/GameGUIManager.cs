@@ -65,7 +65,14 @@ namespace TowerDefenseGame.GameGUI
             sprites.Begin();
             sprites.Draw(backgroundTexture, new Rectangle(0, yStart, width, 200), Color.White);
             sprites.DrawString(masterGame.GetGUIFont(), "Gold: " + gold, GetRelativeLocation(10, 5), Color.Gold);
-            sprites.DrawString(masterGame.GetGUIFont(), "Time until next wave: " + masterGame.GetMapManager().GetWaveManager().GetTimeUntilNextWave(), GetRelativeLocation(10, 25), Color.Red);
+            if (masterGame.GetMapManager().GetWaveManager().GetCurrentWave() == null || masterGame.GetMapManager().GetWaveManager().IsWaveComplete())
+            {
+                sprites.DrawString(masterGame.GetGUIFont(), "Time until next wave: " + masterGame.GetMapManager().GetWaveManager().GetTimeUntilNextWave(), GetRelativeLocation(10, 25), Color.Red);
+            }
+            else if (masterGame.GetMapManager().GetWaveManager().GetCurrentWave() != null)
+            {
+                sprites.DrawString(masterGame.GetGUIFont(), "Monsters remaining: " + masterGame.GetMapManager().GetWaveManager().GetCurrentWave().GetTotalMonsters(), GetRelativeLocation(10, 25), Color.Red);
+            }
             sprites.End();
 
             foreach (Button b in guiButtons)

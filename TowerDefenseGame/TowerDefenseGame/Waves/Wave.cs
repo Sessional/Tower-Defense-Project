@@ -14,7 +14,6 @@ namespace TowerDefenseGame.Waves
         private WaveManager masterManager;
         private TowerDefenseGame masterGame;
 
-        private int liveMonsters;
         private int monstersToSpawn;
         private int monstersSpawned;
 
@@ -26,17 +25,16 @@ namespace TowerDefenseGame.Waves
 
         public Wave(WaveManager masterManager, TowerDefenseGame masterGame, Monster typeOfMonster)
         {
-            timeUntilNextSpawn = 100;
+            timeUntilNextSpawn = 0;
             this.masterManager = masterManager;
             this.masterGame = masterGame;
             this.monsterType = typeOfMonster;
-            liveMonsters = 0;
             monstersToSpawn = 10;
             
             monstersAlive = new List<Monster>();
         }
 
-        public int getLiveMonsters()
+        public int GetLiveMonsters()
         {
             return monstersAlive.Count;
         }
@@ -51,6 +49,11 @@ namespace TowerDefenseGame.Waves
             return monstersSpawned;
         }
 
+        public int GetRemainingMonsters()
+        {
+            return GetRemainingSpawns() + GetLiveMonsters();
+        }
+
         public int GetTotalMonsters()
         {
             return GetRemainingSpawns() + GetNumberSpawned();
@@ -58,7 +61,7 @@ namespace TowerDefenseGame.Waves
 
         public bool IsWaveComplete()
         {
-            if (getLiveMonsters() == 0 && GetRemainingSpawns() == 0)
+            if (GetLiveMonsters() == 0 && GetRemainingSpawns() == 0)
             {
                 return true;
             }
@@ -80,6 +83,7 @@ namespace TowerDefenseGame.Waves
 
             this.monstersAlive.Add(newMonster);
             monstersToSpawn--;
+            monstersSpawned++;
 
             timeUntilNextSpawn = 100;
         }
@@ -97,7 +101,7 @@ namespace TowerDefenseGame.Waves
             List<Monster> mToRemove = new List<Monster>();
             foreach (Monster m in monstersAlive)
             {
-                if (m.isDead)
+                if (m.isDead || m.isLeak)
                 {
                     mToRemove.Add(m);
                 }
