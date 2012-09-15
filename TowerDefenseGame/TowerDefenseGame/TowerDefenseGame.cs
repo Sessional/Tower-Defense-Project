@@ -116,6 +116,7 @@ namespace TowerDefenseGame
         }
 
         KeyboardState prevState;
+        MouseState prevMouseState;
 
         /// <summary>
         /// Allows the game to run logic such as updating the world,
@@ -157,7 +158,7 @@ namespace TowerDefenseGame
             int x = Mouse.GetState().X;
             int y = Mouse.GetState().Y;
 
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed && prevMouseState != null && prevMouseState.LeftButton != ButtonState.Pressed)
             {
                 if (currentState == GameState.MainWindow)
                 {
@@ -169,7 +170,7 @@ namespace TowerDefenseGame
                 }
             }
 
-            if (Mouse.GetState().RightButton == ButtonState.Pressed)
+            if (Mouse.GetState().RightButton == ButtonState.Pressed && prevMouseState != null && prevMouseState.LeftButton != ButtonState.Pressed)
             {
                 if (currentState == GameState.MainWindow)
                 {
@@ -183,6 +184,7 @@ namespace TowerDefenseGame
             // TODO: Add your update logic here
 
             prevState = Keyboard.GetState();
+            prevMouseState = Mouse.GetState();
 
             base.Update(gameTime);
         }

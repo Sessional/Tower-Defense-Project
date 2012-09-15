@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using TowerDefenseGame.GameGUI.CursorModifications;
 using Microsoft.Xna.Framework;
 using TowerDefenseGame.GameGUI.GUIButtons;
+using TowerDefenseGame.Tiles;
 
 namespace TowerDefenseGame.GameGUI
 {
@@ -29,6 +30,7 @@ namespace TowerDefenseGame.GameGUI
 
         private Texture2D backgroundTexture;
         private List<Button> guiButtons;
+        private List<Button> contextButtons;
 
         public GameGUIManager(MapManager masterManager, TowerDefenseGame masterGame, ContentManager content, int yStart, int width)
         {
@@ -40,6 +42,8 @@ namespace TowerDefenseGame.GameGUI
 
             guiButtons = new List<Button>();
             guiButtons.Add(new MenuButton(masterGame, content.Load<Texture2D>("Menus//Buttons//buttonOptions"), GetRelativeLocationX(width - 100), GetRelativeLocationY(10), 115, 40));
+
+            contextButtons = new List<Button>();
 
             this.gold = 75;
             this.lives = 50;
@@ -67,6 +71,32 @@ namespace TowerDefenseGame.GameGUI
             lives--;
         }
 
+        public void Update(GameTime time)
+        {
+            
+            if (masterGame.GetMapManager().GetCurrentMap().HasSelectionChanged())
+            {
+                while (contextButtons.Count > 0)
+                {
+                    contextButtons.RemoveAt(0);
+                }
+
+                if (masterGame.GetMapManager().GetCurrentMap().GetSelection() == null)
+                {
+
+                }
+                else
+                {
+                    GameTile selectedTile = masterGame.GetMapManager().GetCurrentMap().GetSelection();
+
+                    if (selectedTile.getOccupant() == null && selectedTile.isBuildable())
+                    {
+                        contextButtons.Add(new BuildBlueTowerButton(masterGame, content.Load<Texture2D>("Towers//TowerBlue"), GetRelativeLocationX(250), GetRelativeLocationY(5), 40, 40));
+                    }
+                }
+            }
+        }
+
         public void Draw(SpriteBatch sprites)
         {
             sprites.Begin();
@@ -88,11 +118,22 @@ namespace TowerDefenseGame.GameGUI
             {
                 b.Draw(sprites);
             }
+            foreach (Button b in contextButtons)
+            {
+                b.Draw(sprites);
+            }
         }
 
         public void OnClick(int x, int y)
         {
             foreach (Button b in guiButtons)
+            {
+                if (b.InBounds(x, y))
+                {
+                    b.OnClick();
+                }
+            }
+            foreach (Button b in contextButtons)
             {
                 if (b.InBounds(x, y))
                 {

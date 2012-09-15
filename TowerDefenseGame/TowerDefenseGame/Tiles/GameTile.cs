@@ -96,6 +96,11 @@ namespace TowerDefenseGame.Tiles
             sprites.Begin();
             sprites.Draw(baseImage, new Rectangle(tileX * TILE_DIMENSIONS, tileY * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
             sprites.End();
+            if (getOccupant() != null)
+            {
+                Console.WriteLine("Has occupant!");
+                occupant.Draw(sprites);
+            }
         }
 
         /// <summary>
@@ -231,7 +236,7 @@ namespace TowerDefenseGame.Tiles
         /// <param name="occupant"></param>
         public void setOccupant(Building occupant)
         {
-
+            this.occupant = occupant;
         }
 
 

@@ -4,3 +4,4 @@ start:Tiles//tileStart
 finish:Tiles//tileFinish
 hover:Tiles//tileHover
 invalidhover:Tiles//tileInvalidHover
+selection:Tiles//tileSelection

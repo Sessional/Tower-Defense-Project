@@ -15,5 +15,7 @@ Content\Menus\Buttons\buttonResumeGame.xnb
 Content\GameGUI\gameGUIBackground.xnb
 Content\GameGUI\GUIText.xnb
 Content\Monsters\GreenBall.xnb
+Content\Towers\TowerBlue.xnb
+Content\Tiles\tileSelection.xnb
 Content\TileSets\standard.txt
 Content\Maps\basic.txt

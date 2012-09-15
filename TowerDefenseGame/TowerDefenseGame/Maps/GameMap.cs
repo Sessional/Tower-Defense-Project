@@ -27,6 +27,7 @@ namespace TowerDefenseGame.Maps
             this.mapName = mapName;
             tileset = masterGame.GetTileManager().getTileSet("standard");
             isPaused = false;
+            selectionHasChanged = false;
             Load();
         }
 
@@ -45,6 +46,9 @@ namespace TowerDefenseGame.Maps
         int mapHeight;
 
         GameTile[][] mapTiles;
+
+        private GameTile selectedTile;
+        private bool selectionHasChanged;
 
         string mapName;
 
@@ -68,7 +72,7 @@ namespace TowerDefenseGame.Maps
             mapWidth = mapTiles.Length;
             mapHeight = mapTiles[0].Length;
             masterGame.SetScreenSize(GetMapWidth() * GameTile.TILE_DIMENSIONS, GetMapHeight() * GameTile.TILE_DIMENSIONS + 200);
-            
+
         }
 
         /// <summary>
@@ -82,15 +86,53 @@ namespace TowerDefenseGame.Maps
                 for (int y = 0; y < mapHeight; y++)
                 {
                     mapTiles[x][y].Draw(sprites);
-                    
                 }
             }
 
+            if (selectedTile != null)
+            {
+                sprites.Begin();
+                if (selectedTile.isBuildable())
+                {
+                    sprites.Draw(tileset.GetTexture("selection"), new Rectangle(selectedTile.GetXCoord(), selectedTile.GetYCoord(), GameTile.TILE_DIMENSIONS, GameTile.TILE_DIMENSIONS), Color.White);
+                }
+                else
+                {
+                    sprites.Draw(tileset.GetTexture("invalidhover"), new Rectangle(selectedTile.GetXCoord(), selectedTile.GetYCoord(), GameTile.TILE_DIMENSIONS, GameTile.TILE_DIMENSIONS), Color.White);
+                }
+                sprites.End();
+            }
+
+        }
+
+        public void OnClick(int x, int y)
+        {
+            if (GetTileByCoord(x, y) != null)
+            {
+                selectionHasChanged = true;
+                selectedTile = GetTileByCoord(x, y);
+            }
+        }
+
+        public void OnRightClick(int x, int y)
+        {
+            selectionHasChanged = true;
+            ClearSelection();
+        }
+
+        public bool HasSelectionChanged()
+        {
+            return selectionHasChanged;
         }
 
         //##################################
         //######## Getters #################
         //##################################
+
+        public GameTile GetSelection()
+        {
+            return selectedTile;
+        }
 
         public TowerDefenseGame GetRootGame()
         {
@@ -106,6 +148,11 @@ namespace TowerDefenseGame.Maps
             return mapWidth;
         }
 
+        public int GetMapWidthPixels()
+        {
+            return mapWidth * GameTile.TILE_DIMENSIONS;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -113,6 +160,11 @@ namespace TowerDefenseGame.Maps
         public int GetMapHeight()
         {
             return mapHeight;
+        }
+
+        public int GetMapHeightPixels()
+        {
+            return mapHeight * GameTile.TILE_DIMENSIONS;
         }
 
         /// <summary>
@@ -124,6 +176,7 @@ namespace TowerDefenseGame.Maps
         public GameTile GetTile(int x, int y)
         {
             return mapTiles[x][y];
+
         }
 
         public GameTile GetTileByCoord(int x, int y)
@@ -186,6 +239,11 @@ namespace TowerDefenseGame.Maps
         public void TogglePause()
         {
             isPaused = !isPaused;
+        }
+
+        public void ClearSelection()
+        {
+            this.selectedTile = null;
         }
     }
 }

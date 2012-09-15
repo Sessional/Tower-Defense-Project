@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buildings\Building.cs" />
+    <Compile Include="Buildings\BuildingManager.cs" />
     <Compile Include="Buildings\Towers\Tower.cs" />
     <Compile Include="Content\TileSetReader.cs" />
     <Compile Include="Content\TextMapReader.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="GameGUI\CursorModifications\SelectedSkill.cs" />
     <Compile Include="GameGUI\GameGUIManager.cs" />
     <Compile Include="GameGUI\GUIButtons\Button.cs" />
+    <Compile Include="GameGUI\GUIButtons\BuildBlueTowerButton.cs" />
     <Compile Include="GameGUI\GUIButtons\MenuButton.cs" />
     <Compile Include="GameGUI\Level.cs" />
     <Compile Include="Maps\GameMap.cs" />
@@ -141,6 +143,7 @@
     <Compile Include="Windows\WindowManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Content\TileSets\standard.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

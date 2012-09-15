@@ -60,6 +60,10 @@ namespace TowerDefenseGame.Windows
 
         public void AddGameWindow(GameWindow gw)
         {
+            if (!masterGame.GetMapManager().GetCurrentMap().IsPaused())
+            {
+                masterGame.GetMapManager().TogglePause();
+            }
             windows.Add(gw);
         }
 

@@ -62,6 +62,7 @@ namespace TowerDefenseGame.Maps
             else if (!currentMap.IsPaused())
             {
                 waveManager.Update(gameTime);
+                gameGUI.Update(gameTime);
             }
         }
 
@@ -117,7 +118,20 @@ namespace TowerDefenseGame.Maps
             }
             else if (!currentMap.IsPaused())
             {
-                gameGUI.OnClick(x, y);
+                if (x < currentMap.GetMapWidthPixels() && x > 0)
+                {
+                    if (y < currentMap.GetMapHeightPixels() && y > 0)
+                    {
+                        currentMap.OnClick(x, y);
+                    }
+                }
+                if (x < currentMap.GetMapWidthPixels() && x > 0)
+                {
+                    if (y < currentMap.GetMapHeightPixels() + 200 && y > currentMap.GetMapHeightPixels())
+                    {
+                        gameGUI.OnClick(x, y);
+                    }
+                }
             }
         }
 
@@ -135,13 +149,17 @@ namespace TowerDefenseGame.Maps
             {
                 int x = Mouse.GetState().X;
                 int y = Mouse.GetState().Y;
-                try
+
+                if (x < currentMap.GetMapWidthPixels() && x > 0)
                 {
-                    GameTile tile = currentMap.GetTile((int)x / GameTile.TILE_DIMENSIONS, (int)y / GameTile.TILE_DIMENSIONS);
-                    tile.OnHover(sprites);
-                }
-                catch (IndexOutOfRangeException)
-                {
+                    if (y < currentMap.GetMapHeightPixels() && y > 0)
+                    {
+                        GameTile tile = currentMap.GetTile((int)x / GameTile.TILE_DIMENSIONS, (int)y / GameTile.TILE_DIMENSIONS);
+                        if (tile != null)
+                        {
+                            tile.OnHover(sprites);
+                        }
+                    }
                 }
             }
 
@@ -155,6 +173,7 @@ namespace TowerDefenseGame.Maps
             }
             else if (!currentMap.IsPaused())
             {
+                currentMap.OnRightClick(x, y);
                 gameGUI.OnRightClick(x, y);
             }
         }

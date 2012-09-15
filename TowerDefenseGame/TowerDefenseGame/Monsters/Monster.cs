@@ -52,7 +52,7 @@ namespace TowerDefenseGame.Monsters
 
             GetNextDirection();
 
-            moveRate = 0.5f;
+            moveRate = 0.7f;
         }
 
         public void GetNextDirection()
