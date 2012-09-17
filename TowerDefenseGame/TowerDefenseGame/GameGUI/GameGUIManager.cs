@@ -9,6 +9,7 @@ using TowerDefenseGame.GameGUI.CursorModifications;
 using Microsoft.Xna.Framework;
 using TowerDefenseGame.GameGUI.GUIButtons;
 using TowerDefenseGame.Tiles;
+using Microsoft.Xna.Framework.Input;
 
 namespace TowerDefenseGame.GameGUI
 {
@@ -49,6 +50,21 @@ namespace TowerDefenseGame.GameGUI
             this.lives = 50;
 
             backgroundTexture = content.Load<Texture2D>("GameGUI//gameGUIBackground");
+        }
+
+        public int GetGold()
+        {
+            return gold;
+        }
+
+        public void AddGold(int g)
+        {
+            this.gold += g;
+        }
+
+        public void SpendGold(int g)
+        {
+            this.gold -= g;
         }
 
         public int GetRelativeLocationX(int offset)
@@ -93,8 +109,13 @@ namespace TowerDefenseGame.GameGUI
                     {
                         contextButtons.Add(new BuildBlueTowerButton(masterGame, content.Load<Texture2D>("Towers//TowerBlue"), GetRelativeLocationX(250), GetRelativeLocationY(5), 40, 40));
                     }
+                    else if (selectedTile.getOccupant() != null)
+                    {
+                        contextButtons = selectedTile.getOccupant().GetContextButtons();
+                    }
                 }
             }
+            
         }
 
         public void Draw(SpriteBatch sprites)
@@ -121,6 +142,25 @@ namespace TowerDefenseGame.GameGUI
             foreach (Button b in contextButtons)
             {
                 b.Draw(sprites);
+            }
+
+            int x = Mouse.GetState().X;
+            int y = Mouse.GetState().Y;
+
+            foreach (Button b in guiButtons)
+            {
+                if (b.InBounds(x, y))
+                {
+                    b.OnHover(sprites);
+                }
+
+            }
+            foreach (Button b in contextButtons)
+            {
+                if (b.InBounds(x, y))
+                {
+                    b.OnHover(sprites);
+                }
             }
         }
 

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using TowerDefenseGame.Waves;
 using TowerDefenseGame.Monsters;
+using TowerDefenseGame.GameGUI.GUIButtons;
 
 namespace TowerDefenseGame.Buildings.Towers
 {
@@ -76,6 +77,11 @@ namespace TowerDefenseGame.Buildings.Towers
             {
                 p.Draw(sprites);
             }
+        }
+
+        public override List<Button> GetContextButtons()
+        {
+            return new List<Button>();
         }
     }
 }

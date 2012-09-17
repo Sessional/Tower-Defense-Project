@@ -21,7 +21,8 @@ namespace TowerDefenseGame.Monsters
 
         float moveRate;
 
-        public int health = 20;
+        public int health;
+        public int maxHealth;
 
         public bool isDead = false;
         public bool isLeak = false;
@@ -32,7 +33,7 @@ namespace TowerDefenseGame.Monsters
         MapManager mapManager;
         WaveManager waveManager;
 
-        public Monster(TowerDefenseGame masterGame, MapManager mapManager, WaveManager waveManager, int x, int y)
+        public Monster(TowerDefenseGame masterGame, MapManager mapManager, WaveManager waveManager, int health, Texture2D texture, int x, int y)
         {
             this.mapManager = mapManager;
             this.masterGame = masterGame;
@@ -42,8 +43,10 @@ namespace TowerDefenseGame.Monsters
             height = 10;
             this.x = x;
             this.y = y;
+            this.health = health;
+            this.maxHealth = health;
 
-            monsterTexture = masterGame.Content.Load<Texture2D>("Monsters//GreenBall");
+            monsterTexture = texture;
 
             GetNextDirection();
 
@@ -181,9 +184,14 @@ namespace TowerDefenseGame.Monsters
             sprites.End();
         }
 
+        public Monster Copy()
+        {
+            return new Monster(masterGame, mapManager, waveManager, this.health, this.monsterTexture, (int)this.x, (int)this.y);
+        }
+
         public void DrawHealthBar(SpriteBatch sprites)
         {
-
+            sprites.DrawString(masterGame.GetHealthFont(), health + "/" + maxHealth, new Vector2(x - 15, y - 10), Color.Red);
         }
     }
 }

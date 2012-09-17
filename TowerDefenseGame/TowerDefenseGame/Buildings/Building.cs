@@ -6,6 +6,7 @@ using TowerDefenseGame.Tiles;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
+using TowerDefenseGame.GameGUI.GUIButtons;
 
 namespace TowerDefenseGame.Buildings
 {
@@ -40,6 +41,8 @@ namespace TowerDefenseGame.Buildings
         public abstract void Draw(SpriteBatch sprites);
 
         public abstract void Update(GameTime gameTime);
+
+        public abstract List<Button> GetContextButtons();
 
         public void OnClick()
         {

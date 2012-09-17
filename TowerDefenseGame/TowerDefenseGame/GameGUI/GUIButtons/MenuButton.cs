@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace TowerDefenseGame.GameGUI.GUIButtons
 {
@@ -27,7 +28,9 @@ namespace TowerDefenseGame.GameGUI.GUIButtons
 
         public override void OnHover(SpriteBatch sprites)
         {
-            throw new NotImplementedException();
+            sprites.Begin();
+            sprites.DrawString(GetMasterGame().GetHealthFont(), "Open menu", new Vector2(this.GetX(), this.GetY()), Color.Green);
+            sprites.End();
         }
     }
 }

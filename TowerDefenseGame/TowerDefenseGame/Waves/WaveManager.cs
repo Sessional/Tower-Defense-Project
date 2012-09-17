@@ -24,6 +24,10 @@ namespace TowerDefenseGame.Waves
         private Wave currentWave;
         private Wave nextWave;
 
+        private Wave[] waveList;
+
+        private Dictionary<string, Texture2D> monsterTextures;
+
         public WaveManager(MapManager masterManager, TowerDefenseGame masterGame, ContentManager content)
         {
             this.masterManager = masterManager;
@@ -31,9 +35,28 @@ namespace TowerDefenseGame.Waves
             this.content = content;
             waveNumber = 0;
             timeUntilNextWave = 30;
-            this.nextWave = new Wave(this, masterGame,
-                new Monster(masterGame, masterManager, this, masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord()));
-            
+            LoadTextures();
+            DefineWaveList();
+            this.nextWave = waveList[waveNumber + 1];
+        }
+
+        public void LoadTextures()
+        {
+            monsterTextures = new Dictionary<string, Texture2D>();
+            monsterTextures.Add("greenball", masterGame.Content.Load<Texture2D>("Monsters//GreenBall"));
+        }
+
+        public void DefineWaveList()
+        {
+            waveList = new Wave[] {
+                new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 10, monsterTextures["greenball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord())),
+                new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 15, monsterTextures["greenball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord())),
+                new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 20, monsterTextures["greenball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord())),
+                new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 30, monsterTextures["greenball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord())),
+                new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 50, monsterTextures["greenball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord())),
+                new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 70, monsterTextures["greenball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord())),
+                
+            };
         }
 
         public int GetWaveNumber()
@@ -66,8 +89,14 @@ namespace TowerDefenseGame.Waves
 
         public void GenerateNextWave()
         {
-            this.nextWave = new Wave(this, masterGame,
-                new Monster(masterGame, masterManager, this, masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord()));
+            if (GetWaveNumber() + 1 >= waveList.Length)
+            {
+                this.nextWave = new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 70, monsterTextures["greenball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord()));
+            }
+            else
+            {
+                this.nextWave = waveList[GetWaveNumber() + 1];
+            }
         }
 
         public bool IsWaveComplete()

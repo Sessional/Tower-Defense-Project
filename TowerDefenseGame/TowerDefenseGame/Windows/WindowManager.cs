@@ -81,7 +81,14 @@ namespace TowerDefenseGame.Windows
             }
             else
             {
-                RemoveWindow();
+                if (GetWindow().GetWindowType() == GameWindows.DefeatWindow)
+                {
+
+                }
+                else
+                {
+                    RemoveWindow();
+                }
             }
         }
 

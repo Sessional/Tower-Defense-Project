@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using TowerDefenseGame.Buildings;
 using TowerDefenseGame.Buildings.Towers;
+using Microsoft.Xna.Framework;
 
 namespace TowerDefenseGame.GameGUI.GUIButtons
 {
@@ -24,12 +25,19 @@ namespace TowerDefenseGame.GameGUI.GUIButtons
 
         public override void OnClick()
         {
-            GetMasterGame().GetMapManager().GetCurrentMap().GetSelection().setOccupant(new Tower(GetMasterGame(), GetMasterGame().Content, GetMasterGame().GetMapManager().GetCurrentMap().GetSelection(), Building.BuildingType.Tower, GetMasterGame().Content.Load<Texture2D>("Towers//TowerBlue")));
+            if (GetMasterGame().GetMapManager().GetGameGUI().GetGold() >= 15)
+            {
+                GetMasterGame().GetMapManager().GetGameGUI().SpendGold(15);
+                GetMasterGame().GetMapManager().GetCurrentMap().GetSelection().setOccupant(new Tower(GetMasterGame(), GetMasterGame().Content, GetMasterGame().GetMapManager().GetCurrentMap().GetSelection(), Building.BuildingType.Tower, GetMasterGame().Content.Load<Texture2D>("Towers//TowerBlue")));
+            }
         }
 
         public override void OnHover(SpriteBatch sprites)
         {
-            throw new NotImplementedException();
+
+            sprites.Begin();
+            sprites.DrawString(GetMasterGame().GetHealthFont(), "Build blue tower", new Vector2(this.GetX() + this.GetWidth(), this.GetY()), Color.Green);
+            sprites.End();
         }
     }
 }

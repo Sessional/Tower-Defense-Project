@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using TowerDefenseGame.Monsters;
 using Microsoft.Xna.Framework.Graphics;
+using TowerDefenseGame.Tiles;
 
 namespace TowerDefenseGame.Buildings.Towers
 {
@@ -29,8 +30,8 @@ namespace TowerDefenseGame.Buildings.Towers
             damage = 2;
             velocity = 1.5f;
             this.target = target;
-            this.x = parentTower.GetParentTile().GetXCoord();
-            this.y = parentTower.GetParentTile().GetYCoord();
+            this.x = parentTower.GetParentTile().GetXCoord() + GameTile.TILE_DIMENSIONS / 3;
+            this.y = parentTower.GetParentTile().GetYCoord() + GameTile.TILE_DIMENSIONS / 3;
             this.parentTower = parentTower;
             texture = masterGame.Content.Load<Texture2D>("Towers//Projectiles//Projectile");
         }
@@ -39,6 +40,11 @@ namespace TowerDefenseGame.Buildings.Towers
         {
             int monsterX = target.GetPosition().GetXCoord() + 20;
             int monsterY = target.GetPosition().GetYCoord() + 20;
+
+            if (target.isDead || target.isLeak)
+            {
+                parentTower.RemoveProjectile(this);
+            }
 
             if (DistanceTo(monsterX, monsterY) < 2)
             {

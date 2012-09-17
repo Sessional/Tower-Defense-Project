@@ -21,6 +21,7 @@ namespace TowerDefenseGame
     {
 
         SpriteFont guiFont;
+        SpriteFont healthFont;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -33,6 +34,11 @@ namespace TowerDefenseGame
         TileManager tileManager;
         MenuManager menuManager;
         MapManager mapManager;
+
+        public SpriteFont GetHealthFont()
+        {
+            return healthFont;
+        }
 
         public SpriteFont GetGUIFont()
         {
@@ -97,11 +103,13 @@ namespace TowerDefenseGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            guiFont = Content.Load<SpriteFont>("GameGUI//GUIText");
+            healthFont = Content.Load<SpriteFont>("Monsters//HealthText");
+
             tileManager = new TileManager(this, Content);
             menuManager = new MenuManager(this, Content);
             mapManager = new MapManager(this, Content);
 
-            guiFont = Content.Load<SpriteFont>("GameGUI//GUIText");
 
             // TODO: use this.Content to load your game content here
         }

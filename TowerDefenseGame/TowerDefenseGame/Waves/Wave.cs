@@ -23,13 +23,13 @@ namespace TowerDefenseGame.Waves
 
         private List<Monster> monstersAlive;
 
-        public Wave(WaveManager masterManager, TowerDefenseGame masterGame, Monster typeOfMonster)
+        public Wave(WaveManager masterManager, TowerDefenseGame masterGame, int count, Monster typeOfMonster)
         {
             timeUntilNextSpawn = 0;
             this.masterManager = masterManager;
             this.masterGame = masterGame;
             this.monsterType = typeOfMonster;
-            monstersToSpawn = 10 + masterManager.GetWaveNumber() * 3;
+            monstersToSpawn = count;
             
             monstersAlive = new List<Monster>();
         }
@@ -84,7 +84,7 @@ namespace TowerDefenseGame.Waves
 
         public void SpawnNextMonster()
         {
-            Monster newMonster = new Monster(masterGame, masterGame.GetMapManager(), masterManager, masterGame.GetMapManager().GetSpawnTiles()[0].GetXCoord() + GameTile.TILE_DIMENSIONS / 3, masterGame.GetMapManager().GetSpawnTiles()[0].GetYCoord() + GameTile.TILE_DIMENSIONS / 3);
+            Monster newMonster = monsterType.Copy();//new Monster(masterGame, masterGame.GetMapManager(), masterManager, masterGame.GetMapManager().GetSpawnTiles()[0].GetXCoord() + GameTile.TILE_DIMENSIONS / 3, masterGame.GetMapManager().GetSpawnTiles()[0].GetYCoord() + GameTile.TILE_DIMENSIONS / 3);
 
             this.monstersAlive.Add(newMonster);
             monstersToSpawn--;
@@ -113,6 +113,7 @@ namespace TowerDefenseGame.Waves
                 if (m.isDead || m.isLeak)
                 {
                     mToRemove.Add(m);
+                    masterGame.GetMapManager().GetGameGUI().AddGold(1);
                 }
                 else
                 {

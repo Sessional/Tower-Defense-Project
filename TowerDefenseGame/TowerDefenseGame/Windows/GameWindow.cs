@@ -112,5 +112,10 @@ namespace TowerDefenseGame.Windows
                 b.Draw(sprites);
             }
         }
+
+        public WindowManager.GameWindows GetWindowType()
+        {
+            return windowType;
+        }
     }
 }
