@@ -19,5 +19,10 @@ Content\Towers\TowerBlue.xnb
 Content\Tiles\tileSelection.xnb
 Content\Towers\Projectiles\Projectile.xnb
 Content\Monsters\HealthText.xnb
+Content\Monsters\BlackBall.xnb
+Content\Monsters\BlueBall.xnb
+Content\Monsters\RedBall.xnb
+Content\Towers\TowerGreen.xnb
+Content\Towers\TowerRed.xnb
 Content\TileSets\standard.txt
 Content\Maps\basic.txt

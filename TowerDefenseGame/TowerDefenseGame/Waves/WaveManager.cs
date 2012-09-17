@@ -44,17 +44,21 @@ namespace TowerDefenseGame.Waves
         {
             monsterTextures = new Dictionary<string, Texture2D>();
             monsterTextures.Add("greenball", masterGame.Content.Load<Texture2D>("Monsters//GreenBall"));
+            monsterTextures.Add("blueball", masterGame.Content.Load<Texture2D>("Monsters//BlueBall"));
+            monsterTextures.Add("redball", masterGame.Content.Load<Texture2D>("Monsters//RedBall"));
+            monsterTextures.Add("blackball", masterGame.Content.Load<Texture2D>("Monsters//BlackBall"));
+
         }
 
         public void DefineWaveList()
         {
             waveList = new Wave[] {
                 new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 10, monsterTextures["greenball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord())),
-                new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 15, monsterTextures["greenball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord())),
-                new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 20, monsterTextures["greenball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord())),
-                new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 30, monsterTextures["greenball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord())),
+                new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 15, monsterTextures["blueball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord())),
+                new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 20, monsterTextures["redball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord())),
+                new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 30, monsterTextures["bluekball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord())),
                 new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 50, monsterTextures["greenball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord())),
-                new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 70, monsterTextures["greenball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord())),
+                new Wave(this, masterGame, 10, new Monster(masterGame, masterManager, this, 70, monsterTextures["redball"], masterManager.GetSpawnTiles()[0].GetXCoord(), masterManager.GetSpawnTiles()[0].GetYCoord())),
                 
             };
         }

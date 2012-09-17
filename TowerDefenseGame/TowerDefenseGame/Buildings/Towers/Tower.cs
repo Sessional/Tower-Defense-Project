@@ -18,6 +18,7 @@ namespace TowerDefenseGame.Buildings.Towers
         private int range;
         private int rateOfFire;
         private int nextFire;
+        private int damage;
 
         public Tower(TowerDefenseGame masterGame, ContentManager content, GameTile parentTile, BuildingType type, Texture2D image)
             : base(masterGame, content, parentTile, type, image)
@@ -25,10 +26,26 @@ namespace TowerDefenseGame.Buildings.Towers
             range = 2;
             rateOfFire = 30;
             nextFire = 0;
+            damage = 2;
             projectiles = new List<Projectile>();
         }
 
         public List<Projectile> projectiles;
+
+        public void SetRange(int r)
+        {
+            range = r;
+        }
+
+        public void SetDamage(int d)
+        {
+            damage = d;
+        }
+
+        public void SetRateOfFire(int rof)
+        {
+            rateOfFire = rof;
+        }
 
         public void RemoveProjectile(Projectile proj)
         {
@@ -54,7 +71,7 @@ namespace TowerDefenseGame.Buildings.Towers
                 {
                     if (GetParentTile().DistanceTo(m.GetPosition()) <= range)
                     {
-                        projectiles.Add(new Projectile(GetRootGame(),this, m));
+                        projectiles.Add(new Projectile(GetRootGame(),this, m, damage));
                         nextFire = rateOfFire;
                         break;
                     }

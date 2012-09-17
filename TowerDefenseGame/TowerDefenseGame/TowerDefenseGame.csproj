@@ -119,6 +119,8 @@
     <Compile Include="GameGUI\GameGUIManager.cs" />
     <Compile Include="GameGUI\GUIButtons\Button.cs" />
     <Compile Include="GameGUI\GUIButtons\BuildBlueTowerButton.cs" />
+    <Compile Include="GameGUI\GUIButtons\BuildRedTowerButton.cs" />
+    <Compile Include="GameGUI\GUIButtons\BuildGreenTowerButton.cs" />
     <Compile Include="GameGUI\GUIButtons\MenuButton.cs" />
     <Compile Include="GameGUI\Level.cs" />
     <Compile Include="Maps\GameMap.cs" />

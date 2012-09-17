@@ -25,9 +25,9 @@ namespace TowerDefenseGame.Buildings.Towers
 
         private float velocity;
 
-        public Projectile(TowerDefenseGame masterGame, Tower parentTower, Monster target)
+        public Projectile(TowerDefenseGame masterGame, Tower parentTower, Monster target, int damage)
         {
-            damage = 2;
+            this.damage = damage;
             velocity = 1.5f;
             this.target = target;
             this.x = parentTower.GetParentTile().GetXCoord() + GameTile.TILE_DIMENSIONS / 3;
