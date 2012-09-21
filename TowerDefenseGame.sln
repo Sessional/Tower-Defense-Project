@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerDefenseGame", "TowerDefenseGame\TowerDefenseGame\TowerDefenseGame.csproj", "{F35D770F-8A00-4947-B25A-B9D264C0D982}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "TowerDefenseGameContent", "TowerDefenseGame\TowerDefenseGameContent\TowerDefenseGameContent.contentproj", "{477B6647-F496-4F19-BE48-78219F37989A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerDefenseGameContent", "TowerDefenseGame\TowerDefenseGameContent\TowerDefenseGameContent.contentproj", "{477B6647-F496-4F19-BE48-78219F37989A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerDefenseEngine", "TowerDefenseEngine\TowerDefenseEngine.csproj", "{44048296-5237-47EF-8307-3DE27149439F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +19,10 @@ Global
 		{F35D770F-8A00-4947-B25A-B9D264C0D982}.Release|x86.Build.0 = Release|x86
 		{477B6647-F496-4F19-BE48-78219F37989A}.Debug|x86.ActiveCfg = Debug|x86
 		{477B6647-F496-4F19-BE48-78219F37989A}.Release|x86.ActiveCfg = Release|x86
+		{44048296-5237-47EF-8307-3DE27149439F}.Debug|x86.ActiveCfg = Debug|x86
+		{44048296-5237-47EF-8307-3DE27149439F}.Debug|x86.Build.0 = Debug|x86
+		{44048296-5237-47EF-8307-3DE27149439F}.Release|x86.ActiveCfg = Release|x86
+		{44048296-5237-47EF-8307-3DE27149439F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

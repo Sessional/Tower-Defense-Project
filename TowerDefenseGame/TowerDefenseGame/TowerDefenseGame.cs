@@ -161,6 +161,23 @@ namespace TowerDefenseGame
                 {
                     GetMapManager().HandleEscape();
                 }
+
+                if (Keyboard.GetState().GetPressedKeys().Contains(Keys.Left))
+                {
+                    GetMapManager().HandleLeftArrow();
+                }
+                if (Keyboard.GetState().GetPressedKeys().Contains(Keys.Up))
+                {
+                    GetMapManager().HandleUpArrow();
+                }
+                if (Keyboard.GetState().GetPressedKeys().Contains(Keys.Right))
+                {
+                    GetMapManager().HandleRightArrow();
+                }
+                if (Keyboard.GetState().GetPressedKeys().Contains(Keys.Down))
+                {
+                    GetMapManager().HandleDownArrow();
+                }
             }
 
             int x = Mouse.GetState().X;

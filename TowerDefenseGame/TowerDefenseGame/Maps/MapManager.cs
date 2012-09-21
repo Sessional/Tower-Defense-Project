@@ -193,5 +193,25 @@ namespace TowerDefenseGame.Maps
         {
             return gameGUI;
         }
+
+        internal void HandleLeftArrow()
+        {
+            currentMap.HandleLeftArrow();
+        }
+
+        internal void HandleRightArrow()
+        {
+            currentMap.HandleRightArrow();
+        }
+
+        internal void HandleUpArrow()
+        {
+            currentMap.HandleUpArrow();
+        }
+
+        internal void HandleDownArrow()
+        {
+            currentMap.HandleDownArrow();
+        }
     }
 }

@@ -28,7 +28,11 @@ namespace TowerDefenseGame.Maps
             tileset = masterGame.GetTileManager().getTileSet("standard");
             isPaused = false;
             selectionHasChanged = false;
+
+            this.viewTileDistance = 5;
             Load();
+            this.viewTileX = this.GetMapWidth() / 2;
+            this.viewTileY = this.GetMapHeight() / 2;
         }
 
         public void SetTileSet(string tilesetName)
@@ -49,6 +53,10 @@ namespace TowerDefenseGame.Maps
 
         private GameTile selectedTile;
         private bool selectionHasChanged;
+
+        private int viewTileX;
+        private int viewTileY;
+        private int viewTileDistance;
 
         string mapName;
 
@@ -71,8 +79,16 @@ namespace TowerDefenseGame.Maps
             mapTiles = mapReader.getTiles();
             mapWidth = mapTiles.Length;
             mapHeight = mapTiles[0].Length;
-            masterGame.SetScreenSize(GetMapWidth() * GameTile.TILE_DIMENSIONS, GetMapHeight() * GameTile.TILE_DIMENSIONS + 200);
-
+            if (this.mapWidth <= 25 && this.mapHeight <= 25)
+            {
+                masterGame.SetScreenSize(GetMapWidth() * GameTile.TILE_DIMENSIONS, GetMapHeight() * GameTile.TILE_DIMENSIONS + 200);
+            }
+            else
+            {
+                int width = viewTileDistance * GameTile.TILE_DIMENSIONS;
+                int height = width;
+                masterGame.SetScreenSize(width, height + 200);
+            }
         }
 
         /// <summary>
@@ -81,11 +97,25 @@ namespace TowerDefenseGame.Maps
         /// <param name="sprites"></param>
         public void Draw(SpriteBatch sprites)
         {
-            for (int x = 0; x < mapWidth; x++)
+
+            if (this.mapWidth <= 25 && this.mapHeight <= 25)
             {
-                for (int y = 0; y < mapHeight; y++)
+                for (int x = 0; x < mapWidth; x++)
                 {
-                    mapTiles[x][y].Draw(sprites);
+                    for (int y = 0; y < mapHeight; y++)
+                    {
+                        mapTiles[x][y].Draw(sprites);
+                    }
+                }
+            }
+            else
+            {
+                for (int x = Math.Max(0, viewTileX - viewTileDistance); x < Math.Min(this.GetMapWidth(), viewTileX + viewTileDistance); x++)
+                {
+                    for (int y = Math.Max(0, viewTileY - viewTileDistance); y < Math.Min(this.GetMapHeight(), viewTileX + viewTileDistance); y++)
+                    {
+                        mapTiles[x][y].Draw(sprites);
+                    }
                 }
             }
 
@@ -263,6 +293,37 @@ namespace TowerDefenseGame.Maps
         public void ClearSelection()
         {
             this.selectedTile = null;
+        }
+
+        internal void HandleLeftArrow()
+        {
+            if (this.viewTileX - viewTileDistance > 0)
+            {
+                this.viewTileX--;
+            }
+        }
+        internal void HandleRightArrow()
+        {
+            if (this.viewTileX + viewTileDistance < mapWidth)
+            {
+                this.viewTileX++;
+            }
+        }
+
+        internal void HandleUpArrow()
+        {
+            if (this.viewTileY - viewTileDistance > 0)
+            {
+                this.viewTileY--;
+            }
+        }
+
+        internal void HandleDownArrow()
+        {
+            if (this.viewTileY + viewTileDistance < mapHeight)
+            {
+                this.viewTileY++;
+            }
         }
     }
 }
