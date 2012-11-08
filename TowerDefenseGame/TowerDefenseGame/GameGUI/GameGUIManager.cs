@@ -105,15 +105,15 @@ namespace TowerDefenseGame.GameGUI
                 {
                     GameTile selectedTile = masterGame.GetMapManager().GetCurrentMap().GetSelection();
 
-                    if (selectedTile.getOccupant() == null && selectedTile.isBuildable())
+                    if (selectedTile.GetOccupant() == null && selectedTile.IsBuildable())
                     {
                         contextButtons.Add(new BuildBlueTowerButton(masterGame, content.Load<Texture2D>("Towers//TowerBlue"), GetRelativeLocationX(250), GetRelativeLocationY(5), 40, 40));
                         contextButtons.Add(new BuildRedTowerButton(masterGame, content.Load<Texture2D>("Towers//TowerRed"), GetRelativeLocationX(295), GetRelativeLocationY(5), 40, 40));
                         contextButtons.Add(new BuildGreenTowerButton(masterGame, content.Load<Texture2D>("Towers//TowerGreen"), GetRelativeLocationX(340), GetRelativeLocationY(5), 40, 40));
                     }
-                    else if (selectedTile.getOccupant() != null)
+                    else if (selectedTile.GetOccupant() != null)
                     {
-                        contextButtons = selectedTile.getOccupant().GetContextButtons();
+                        contextButtons = selectedTile.GetOccupant().GetContextButtons();
                     }
                 }
             }

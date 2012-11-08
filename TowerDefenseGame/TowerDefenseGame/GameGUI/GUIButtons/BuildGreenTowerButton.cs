@@ -32,7 +32,7 @@ namespace TowerDefenseGame.GameGUI.GUIButtons
                 towerToBuild.SetRateOfFire(90);
                 towerToBuild.SetDamage(10);
                 towerToBuild.SetRange(5);
-                GetMasterGame().GetMapManager().GetCurrentMap().GetSelection().setOccupant(towerToBuild);
+                GetMasterGame().GetMapManager().GetCurrentMap().GetSelection().SetOccupant(towerToBuild);
             }
         }
 

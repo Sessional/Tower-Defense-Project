@@ -25,7 +25,6 @@ namespace TowerDefenseGame.Tiles
         //######## Constructors ############
         //##################################
 
-        string specialNote;
 
         /// <summary>
         /// 
@@ -41,6 +40,7 @@ namespace TowerDefenseGame.Tiles
             this.tileY = tileY;
             this.buildable = isBuildable;
             this.baseImage = map.DEFAULT_TILE_TEXTURE;
+            this.drawRectangle = new Rectangle(tileX * TILE_DIMENSIONS, tileY * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS);
         }
 
         /// <summary>
@@ -58,11 +58,14 @@ namespace TowerDefenseGame.Tiles
             this.tileY = tileY;
             this.buildable = isBuildable;
             this.baseImage = texture;
+            this.drawRectangle = new Rectangle(tileX * TILE_DIMENSIONS, tileY * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS);
         }
 
         //##################################
         //######## Instance Variables ######
         //##################################
+
+        string specialNote;
 
         private GameMap map;
 
@@ -70,6 +73,8 @@ namespace TowerDefenseGame.Tiles
 
         private Texture2D baseImage;
         private Building occupant;
+
+        private Rectangle drawRectangle;
 
         private int tileX;
         private int tileY;
@@ -82,7 +87,7 @@ namespace TowerDefenseGame.Tiles
         /// 
         /// </summary>
         /// <returns></returns>
-        public bool isBuildable()
+        public bool IsBuildable()
         {
             return buildable;
         }
@@ -94,13 +99,36 @@ namespace TowerDefenseGame.Tiles
         public void Draw(SpriteBatch sprites)
         {
             sprites.Begin();
-            sprites.Draw(baseImage, new Rectangle(tileX * TILE_DIMENSIONS, tileY * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
+            if (this.GetMap().GetMapWidth() <= GameMap.VIEW_DIMENSION_X && this.GetMap().GetMapHeight() <= GameMap.VIEW_DIMENSION_Y)
+            {
+                sprites.Draw(baseImage,this.drawRectangle, Color.White);
+            }
+            else
+            {
+                GameTile curViewTile = GetMap().GetViewTile();
+                int viewTileX = curViewTile.GetTileX();
+                int viewTileY = curViewTile.GetTileY();
+                int tileX = GetTileX();
+                int tileY = GetTileY();
+
+                int distFromLeft = viewTileX - GameMap.VIEW_WIDTH;
+                int distFromTop = viewTileY - GameMap.VIEW_HEIGHT;
+
+                drawRectangle.X = (tileX - distFromLeft) * GameTile.TILE_DIMENSIONS;
+                drawRectangle.Y = (tileY - distFromTop) * GameTile.TILE_DIMENSIONS;
+
+                sprites.Draw(baseImage, this.drawRectangle, Color.White);
+            }
             sprites.End();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sprites"></param>
         public void DrawOccupants(SpriteBatch sprites)
         {
-            if (getOccupant() != null)
+            if (GetOccupant() != null)
             {
                 occupant.Draw(sprites);
             }
@@ -113,17 +141,21 @@ namespace TowerDefenseGame.Tiles
         public void OnHover(SpriteBatch sprites)
         {
             sprites.Begin();
-            if (isBuildable())
+            if (IsBuildable())
             {
-                sprites.Draw(map.tileset.GetTexture("hover"), new Rectangle(tileX * TILE_DIMENSIONS, tileY * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
+                sprites.Draw(map.tileset.GetTexture("hover"), this.drawRectangle, Color.White);
             }
             else
             {
-                sprites.Draw(map.tileset.GetTexture("invalidhover"), new Rectangle(tileX * TILE_DIMENSIONS, tileY * TILE_DIMENSIONS, TILE_DIMENSIONS, TILE_DIMENSIONS), Color.White);
+                sprites.Draw(map.tileset.GetTexture("invalidhover"), this.drawRectangle, Color.White);
             }
             sprites.End();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
             if (occupant != null)
@@ -140,11 +172,15 @@ namespace TowerDefenseGame.Tiles
         /// 
         /// </summary>
         /// <returns></returns>
-        public int getTileX()
+        public int GetTileX()
         {
             return tileX;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public int GetXCoord()
         {
             return tileX * TILE_DIMENSIONS;
@@ -154,11 +190,15 @@ namespace TowerDefenseGame.Tiles
         /// 
         /// </summary>
         /// <returns></returns>
-        public int getTileY()
+        public int GetTileY()
         {
             return tileY;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public int GetYCoord()
         {
             return tileY * TILE_DIMENSIONS;
@@ -168,7 +208,7 @@ namespace TowerDefenseGame.Tiles
         /// 
         /// </summary>
         /// <returns></returns>
-        public Texture2D getBaseImage()
+        public Texture2D GetBaseImage()
         {
             return baseImage;
         }
@@ -177,7 +217,7 @@ namespace TowerDefenseGame.Tiles
         /// 
         /// </summary>
         /// <returns></returns>
-        public Building getOccupant()
+        public Building GetOccupant()
         {
             return occupant;
         }
@@ -186,7 +226,7 @@ namespace TowerDefenseGame.Tiles
         /// 
         /// </summary>
         /// <returns></returns>
-        public GameMap getMap()
+        public GameMap GetMap()
         {
             return map;
         }
@@ -209,7 +249,7 @@ namespace TowerDefenseGame.Tiles
         /// 
         /// </summary>
         /// <param name="xCoord"></param>
-        public void setXCoord(int xCoord)
+        public void SetXCoord(int xCoord)
         {
 
         }
@@ -218,7 +258,7 @@ namespace TowerDefenseGame.Tiles
         /// 
         /// </summary>
         /// <param name="yCoord"></param>
-        public void setYCoord(int yCoord)
+        public void SetYCoord(int yCoord)
         {
 
         }
@@ -227,7 +267,7 @@ namespace TowerDefenseGame.Tiles
         /// 
         /// </summary>
         /// <param name="buildable"></param>
-        public void setBuildable(bool buildable)
+        public void SetBuildable(bool buildable)
         {
 
         }
@@ -236,7 +276,7 @@ namespace TowerDefenseGame.Tiles
         /// 
         /// </summary>
         /// <param name="baseImage"></param>
-        public void setBaseImage(Texture2D baseImage)
+        public void SetBaseImage(Texture2D baseImage)
         {
             
         }
@@ -245,7 +285,7 @@ namespace TowerDefenseGame.Tiles
         /// 
         /// </summary>
         /// <param name="occupant"></param>
-        public void setOccupant(Building occupant)
+        public void SetOccupant(Building occupant)
         {
             this.occupant = occupant;
         }
@@ -253,8 +293,8 @@ namespace TowerDefenseGame.Tiles
 
         internal bool IsPath()
         {
-            if (this.baseImage == this.getMap().tileset.GetTexture("path") || this.baseImage == this.getMap().tileset.GetTexture("start") ||
-                this.baseImage == this.getMap().tileset.GetTexture("finish"))
+            if (this.baseImage == this.GetMap().tileset.GetTexture("path") || this.baseImage == this.GetMap().tileset.GetTexture("start") ||
+                this.baseImage == this.GetMap().tileset.GetTexture("finish"))
             {
                 return true;
             }
@@ -263,8 +303,8 @@ namespace TowerDefenseGame.Tiles
 
         public double DistanceTo(GameTile tile)
         {
-            return Math.Abs(Math.Sqrt((this.getTileX() - tile.getTileX()) * (this.getTileX() - tile.getTileX())
-                + (this.getTileY() - tile.getTileY()) * (this.getTileY() - tile.getTileY())));
+            return Math.Abs(Math.Sqrt((this.GetTileX() - tile.GetTileX()) * (this.GetTileX() - tile.GetTileX())
+                + (this.GetTileY() - tile.GetTileY()) * (this.GetTileY() - tile.GetTileY())));
         }
     }
 }

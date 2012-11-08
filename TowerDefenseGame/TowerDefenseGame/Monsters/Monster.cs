@@ -56,8 +56,8 @@ namespace TowerDefenseGame.Monsters
         public void GetNextDirection()
         {
             GameTile curTile = mapManager.GetCurrentMap().GetTileByCoord((int)x, (int)y);
-            int tileX = curTile.getTileX();
-            int tileY = curTile.getTileY();
+            int tileX = curTile.GetTileX();
+            int tileY = curTile.GetTileY();
 
             if (currentDirection == GameTile.EAST)
             {
@@ -136,7 +136,7 @@ namespace TowerDefenseGame.Monsters
         internal void Update(GameTime gameTime)
         {
 
-            if (masterGame.GetMapManager().GetCurrentMap().GetTileByCoord((int)x, (int)y).getBaseImage() == masterGame.GetMapManager().GetCurrentMap().tileset.GetTexture("finish"))
+            if (masterGame.GetMapManager().GetCurrentMap().GetTileByCoord((int)x, (int)y).GetBaseImage() == masterGame.GetMapManager().GetCurrentMap().tileset.GetTexture("finish"))
             {
                 this.isLeak = true;
             }

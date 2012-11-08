@@ -35,6 +35,10 @@ namespace TowerDefenseGame
         MenuManager menuManager;
         MapManager mapManager;
 
+        /// <summary>
+        /// The SpriteFont used to write health text on the screen.
+        /// </summary>
+        /// <returns></returns>
         public SpriteFont GetHealthFont()
         {
             return healthFont;

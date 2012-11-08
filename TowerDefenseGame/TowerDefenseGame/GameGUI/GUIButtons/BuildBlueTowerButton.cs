@@ -28,7 +28,7 @@ namespace TowerDefenseGame.GameGUI.GUIButtons
             if (GetMasterGame().GetMapManager().GetGameGUI().GetGold() >= 15)
             {
                 GetMasterGame().GetMapManager().GetGameGUI().SpendGold(15);
-                GetMasterGame().GetMapManager().GetCurrentMap().GetSelection().setOccupant(new Tower(GetMasterGame(), GetMasterGame().Content, GetMasterGame().GetMapManager().GetCurrentMap().GetSelection(), Building.BuildingType.Tower, GetMasterGame().Content.Load<Texture2D>("Towers//TowerBlue")));
+                GetMasterGame().GetMapManager().GetCurrentMap().GetSelection().SetOccupant(new Tower(GetMasterGame(), GetMasterGame().Content, GetMasterGame().GetMapManager().GetCurrentMap().GetSelection(), Building.BuildingType.Tower, GetMasterGame().Content.Load<Texture2D>("Towers//TowerBlue")));
             }
         }
 

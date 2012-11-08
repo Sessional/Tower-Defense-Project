@@ -14,6 +14,11 @@ namespace TowerDefenseGame.Maps
         //##################################
         //######## Public Variables ########
         //##################################
+        public static int VIEW_WIDTH = 5;
+        public static int VIEW_HEIGHT = 5;
+        public static int VIEW_DIMENSION_X = 30;
+        public static int VIEW_DIMENSION_Y = 30;
+
         public Texture2D DEFAULT_TILE_TEXTURE;
 
         public TileSet tileset;
@@ -79,14 +84,14 @@ namespace TowerDefenseGame.Maps
             mapTiles = mapReader.getTiles();
             mapWidth = mapTiles.Length;
             mapHeight = mapTiles[0].Length;
-            if (this.mapWidth <= 25 && this.mapHeight <= 25)
+            if (this.mapWidth <= GameMap.VIEW_DIMENSION_X && this.mapHeight <= GameMap.VIEW_DIMENSION_Y)
             {
                 masterGame.SetScreenSize(GetMapWidth() * GameTile.TILE_DIMENSIONS, GetMapHeight() * GameTile.TILE_DIMENSIONS + 200);
             }
             else
             {
-                int width = viewTileDistance * GameTile.TILE_DIMENSIONS;
-                int height = width;
+                int width = GameMap.VIEW_DIMENSION_X * GameTile.TILE_DIMENSIONS;
+                int height = GameMap.VIEW_DIMENSION_Y * GameTile.TILE_DIMENSIONS;
                 masterGame.SetScreenSize(width, height + 200);
             }
         }
@@ -98,7 +103,7 @@ namespace TowerDefenseGame.Maps
         public void Draw(SpriteBatch sprites)
         {
 
-            if (this.mapWidth <= 25 && this.mapHeight <= 25)
+            if (this.mapWidth <= GameMap.VIEW_DIMENSION_X && this.mapHeight <= GameMap.VIEW_DIMENSION_Y)
             {
                 for (int x = 0; x < mapWidth; x++)
                 {
@@ -110,9 +115,9 @@ namespace TowerDefenseGame.Maps
             }
             else
             {
-                for (int x = Math.Max(0, viewTileX - viewTileDistance); x < Math.Min(this.GetMapWidth(), viewTileX + viewTileDistance); x++)
+                for (int x = Math.Max(0, viewTileX - GameMap.VIEW_DIMENSION_X); x < Math.Min(this.GetMapWidth(), viewTileX + GameMap.VIEW_DIMENSION_X); x++)
                 {
-                    for (int y = Math.Max(0, viewTileY - viewTileDistance); y < Math.Min(this.GetMapHeight(), viewTileX + viewTileDistance); y++)
+                    for (int y = Math.Max(0, viewTileY - GameMap.VIEW_DIMENSION_Y); y < Math.Min(this.GetMapHeight(), viewTileX + GameMap.VIEW_DIMENSION_Y); y++)
                     {
                         mapTiles[x][y].Draw(sprites);
                     }
@@ -122,7 +127,7 @@ namespace TowerDefenseGame.Maps
             if (selectedTile != null)
             {
                 sprites.Begin();
-                if (selectedTile.isBuildable())
+                if (selectedTile.IsBuildable())
                 {
                     sprites.Draw(tileset.GetTexture("selection"), new Rectangle(selectedTile.GetXCoord(), selectedTile.GetYCoord(), GameTile.TILE_DIMENSIONS, GameTile.TILE_DIMENSIONS), Color.White);
                 }
@@ -236,6 +241,11 @@ namespace TowerDefenseGame.Maps
             return GetTile(tileX, tileY);
         }
 
+        public GameTile GetViewTile()
+        {
+            return mapTiles[(int)viewTileX][(int)viewTileY];
+        }
+
         public List<GameTile> GetSpawnTiles()
         {
             List<GameTile> spawnTiles = new List<GameTile>();
@@ -243,7 +253,7 @@ namespace TowerDefenseGame.Maps
             {
                 for (int y = 0; y < mapTiles[x].Length; y++)
                 {
-                    if (mapTiles[x][y].getBaseImage() == tileset.GetTexture("start"))
+                    if (mapTiles[x][y].GetBaseImage() == tileset.GetTexture("start"))
                     {
                         spawnTiles.Add(mapTiles[x][y]);
                     }
@@ -259,7 +269,7 @@ namespace TowerDefenseGame.Maps
             {
                 for (int y = 0; y < mapTiles[x].Length; y++)
                 {
-                    if (mapTiles[x][y].getBaseImage() == tileset.GetTexture("finish"))
+                    if (mapTiles[x][y].GetBaseImage() == tileset.GetTexture("finish"))
                     {
                         finishTiles.Add(mapTiles[x][y]);
                     }
@@ -297,14 +307,14 @@ namespace TowerDefenseGame.Maps
 
         internal void HandleLeftArrow()
         {
-            if (this.viewTileX - viewTileDistance > 0)
+            if (this.viewTileX - GameMap.VIEW_DIMENSION_X/2 > 0)
             {
                 this.viewTileX--;
             }
         }
         internal void HandleRightArrow()
         {
-            if (this.viewTileX + viewTileDistance < mapWidth)
+            if (this.viewTileX + GameMap.VIEW_DIMENSION_X/2 +1 < mapWidth)
             {
                 this.viewTileX++;
             }
@@ -312,7 +322,7 @@ namespace TowerDefenseGame.Maps
 
         internal void HandleUpArrow()
         {
-            if (this.viewTileY - viewTileDistance > 0)
+            if (this.viewTileY - GameMap.VIEW_DIMENSION_Y/2 > 0)
             {
                 this.viewTileY--;
             }
@@ -320,7 +330,7 @@ namespace TowerDefenseGame.Maps
 
         internal void HandleDownArrow()
         {
-            if (this.viewTileY + viewTileDistance < mapHeight)
+            if (this.viewTileY + GameMap.VIEW_DIMENSION_Y/2 < mapHeight)
             {
                 this.viewTileY++;
             }

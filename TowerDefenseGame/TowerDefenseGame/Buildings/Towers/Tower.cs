@@ -54,8 +54,8 @@ namespace TowerDefenseGame.Buildings.Towers
 
         public override void Update(GameTime gameTime)
         {
-            int tileX = GetParentTile().getTileX();
-            int tileY = GetParentTile().getTileY();
+            int tileX = GetParentTile().GetTileX();
+            int tileY = GetParentTile().GetTileY();
 
             WaveManager waveManager = GetRootGame().GetMapManager().GetWaveManager();
 
